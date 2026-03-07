@@ -287,7 +287,8 @@ size = Vector2i(2, 2)
 render_target_update_mode = 0
 
 [node name="WizardPreview" parent="Grimoire/TabContainer/Barber/RightPage/PreviewContainer/SubViewport" instance=ExtResource("5_wiz")]
-position = Vector2(60, 60)
+position = Vector2(55, 120)
+scale = Vector2(1.5, 1.5)
 
 [node name="Library" type="HSplitContainer" parent="Grimoire/TabContainer"]
 visible = false
