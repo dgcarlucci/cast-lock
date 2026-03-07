@@ -110,6 +110,10 @@ func attack():
 		ui.update_enemy_health(current_enemy_hp, max_enemy_hp)
 		enemy.play_hit_animation()
 		
+		# Gain spell mastery
+		SpellManager.gain_mastery(StatsManager.stats.active_spell_id, 5, StatsManager.stats)
+		ui.update_stats() # Update UI to show progress
+		
 		if current_enemy_hp <= 0:
 			on_enemy_death()
 	)

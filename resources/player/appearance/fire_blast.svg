@@ -1,0 +1,5 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fire Blast (Explosive) -->
+  <path d="M32 5L40 25H60L45 35L55 55L32 45L9 55L19 35L4 25H24L32 5Z" fill="#e67e22" stroke="#d35400" stroke-width="2"/>
+  <circle cx="32" cy="32" r="8" fill="#f1c40f"/>
+</svg>

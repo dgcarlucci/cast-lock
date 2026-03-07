@@ -187,23 +187,12 @@ layout_mode = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(0.243137, 0.152941, 0.137255, 1)
 theme_override_font_sizes/font_size = 10
-text = "THE ANVIL"
+text = "WORKSHOP"
 horizontal_alignment = 1
 
-[node name="Center" type="CenterContainer" parent="Grimoire/TabContainer/Workshop/LeftPage/VBox"]
+[node name="EquipmentList" type="VBoxContainer" parent="Grimoire/TabContainer/Workshop/LeftPage/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
-
-[node name="AnvilIcon" type="TextureRect" parent="Grimoire/TabContainer/Workshop/LeftPage/VBox/Center"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-texture = ExtResource("4_anvil")
-expand_mode = 1
-
-[node name="CraftButtonInside" type="Button" parent="Grimoire/TabContainer/Workshop/LeftPage/VBox"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-text = "CRAFT (10G)"
 
 [node name="RightPage" type="MarginContainer" parent="Grimoire/TabContainer/Workshop"]
 layout_mode = 2
@@ -216,19 +205,24 @@ theme_override_constants/margin_bottom = 15
 [node name="VBox" type="VBoxContainer" parent="Grimoire/TabContainer/Workshop/RightPage"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Grimoire/TabContainer/Workshop/RightPage/VBox"]
+[node name="ItemTitle" type="Label" parent="Grimoire/TabContainer/Workshop/RightPage/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.243137, 0.152941, 0.137255, 1)
-theme_override_font_sizes/font_size = 9
-text = "RECENT LOOT"
+theme_override_font_sizes/font_size = 10
+text = "Item Name"
 horizontal_alignment = 1
 
-[node name="LootLogLabel" type="Label" parent="Grimoire/TabContainer/Workshop/RightPage/VBox"]
+[node name="ItemInfo" type="Label" parent="Grimoire/TabContainer/Workshop/RightPage/VBox"]
 layout_mode = 2
-size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.345098, 0.270588, 0.254902, 1)
-theme_override_font_sizes/font_size = 7
-text = "- None"
+theme_override_font_sizes/font_size = 8
+text = "Boost: +2 Power"
+autowrap_mode = 2
+
+[node name="ResearchButton" type="Button" parent="Grimoire/TabContainer/Workshop/RightPage/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "RESEARCH (50G)"
 
 [node name="Barber" type="HSplitContainer" parent="Grimoire/TabContainer"]
 visible = false
@@ -317,16 +311,6 @@ horizontal_alignment = 1
 [node name="SpellList" type="VBoxContainer" parent="Grimoire/TabContainer/Spells/LeftPage/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
-
-[node name="MagicMissileBtn" type="Button" parent="Grimoire/TabContainer/Spells/LeftPage/VBox/SpellList"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-text = "Magic Missile"
-
-[node name="FireballBtn" type="Button" parent="Grimoire/TabContainer/Spells/LeftPage/VBox/SpellList"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-text = "Fireball"
 
 [node name="RightPage" type="MarginContainer" parent="Grimoire/TabContainer/Spells"]
 layout_mode = 2
@@ -428,17 +412,17 @@ texture_normal = ExtResource("4_anvil")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="SpellBtn" type="TextureButton" parent="Grimoire/Footer"]
-custom_minimum_size = Vector2(24, 24)
-layout_mode = 2
-texture_normal = ExtResource("10_spell")
-ignore_texture_size = true
-stretch_mode = 5
-
 [node name="BarberBtn" type="TextureButton" parent="Grimoire/Footer"]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 texture_normal = ExtResource("7_barber")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="SpellBtn" type="TextureButton" parent="Grimoire/Footer"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture_normal = ExtResource("10_spell")
 ignore_texture_size = true
 stretch_mode = 5
 
@@ -457,12 +441,10 @@ ignore_texture_size = true
 stretch_mode = 5
 
 [connection signal="pressed" from="BookButton" to="." method="_on_book_button_pressed"]
-[connection signal="pressed" from="Grimoire/TabContainer/Workshop/LeftPage/VBox/CraftButtonInside" to="." method="_on_craft_button_pressed"]
+[connection signal="pressed" from="Grimoire/TabContainer/Workshop/RightPage/VBox/ResearchButton" to="." method="_on_research_button_pressed"]
 [connection signal="pressed" from="Grimoire/TabContainer/Barber/LeftPage/VBox/RandomizeButton" to="." method="_on_randomize_button_pressed"]
 [connection signal="pressed" from="Grimoire/TabContainer/Barber/LeftPage/VBox/BeardToggle" to="." method="_on_beard_toggle_pressed"]
 [connection signal="pressed" from="Grimoire/TabContainer/Barber/LeftPage/VBox/HairToggle" to="." method="_on_hair_toggle_pressed"]
-[connection signal="pressed" from="Grimoire/TabContainer/Spells/LeftPage/VBox/SpellList/MagicMissileBtn" to="." method="_on_spell_select_pressed" binds= ["magic_missile"]]
-[connection signal="pressed" from="Grimoire/TabContainer/Spells/LeftPage/VBox/SpellList/FireballBtn" to="." method="_on_spell_select_pressed" binds= ["fireball"]]
 [connection signal="pressed" from="Grimoire/TabContainer/Spells/RightPage/VBox/TrainButton" to="." method="_on_train_spell_pressed"]
 [connection signal="pressed" from="Grimoire/TabContainer/Spells/RightPage/VBox/EquipButton" to="." method="_on_equip_spell_pressed"]
 [connection signal="pressed" from="Grimoire/TabContainer/Library/LeftPage/VBox/SaveButton" to="." method="_on_save_button_pressed"]

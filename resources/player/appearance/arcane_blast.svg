@@ -1,0 +1,6 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Arcane Blast (Big Energy) -->
+  <circle cx="32" cy="32" r="20" fill="#9b59b6" opacity="0.4"/>
+  <circle cx="32" cy="32" r="12" fill="#9b59b6" stroke="#8e44ad" stroke-width="3"/>
+  <path d="M32 10V20M32 54V44M54 32H44M10 32H20" stroke="white" stroke-width="4" stroke-linecap="round"/>
+</svg>

@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 SaveManager="*res://scripts/SaveManager.gd"
 StatsManager="*res://scripts/StatsManager.gd"
 SpellManager="*res://scripts/SpellManager.gd"
+EquipmentManager="*res://scripts/EquipmentManager.gd"
 
 [display]
 
