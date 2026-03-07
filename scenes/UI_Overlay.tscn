@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://scripts/UI_Overlay.gd" id="1_x8b7o"]
 [ext_resource type="Texture2D" path="res://resources/ui/icons/book_icon.svg" id="2_book"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" path="res://resources/ui/icons/gear_icon.svg" id="8_gear"]
 [ext_resource type="Texture2D" path="res://resources/ui/icons/close_icon.svg" id="9_close"]
 [ext_resource type="Texture2D" path="res://resources/ui/icons/spell_icon.svg" id="10_spell"]
+[ext_resource type="Texture2D" path="res://resources/ui/icons/armor_icon.svg" id="11_armor"]
 
 [node name="UI_Overlay" type="Control"]
 layout_mode = 3
@@ -257,14 +258,6 @@ theme_override_font_sizes/font_size = 10
 text = "BARBER SHOP"
 horizontal_alignment = 1
 
-[node name="Scroll" type="ScrollContainer" parent="Grimoire/TabContainer/Barber/LeftPage/VBox"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="UnlockedItems" type="VBoxContainer" parent="Grimoire/TabContainer/Barber/LeftPage/VBox/Scroll"]
-layout_mode = 2
-size_flags_horizontal = 3
-
 [node name="RandomizeButton" type="Button" parent="Grimoire/TabContainer/Barber/LeftPage/VBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
@@ -298,7 +291,61 @@ handle_input_locally = false
 size = Vector2i(2, 2)
 render_target_update_mode = 0
 
-[node name="WizardPreview" parent="Grimoire/TabContainer/Barber/RightPage/PreviewContainer/SubViewport" instance=ExtResource("5_wiz")]
+[node name="WizardPreviewBarber" parent="Grimoire/TabContainer/Barber/RightPage/PreviewContainer/SubViewport" instance=ExtResource("5_wiz")]
+position = Vector2(55, 120)
+scale = Vector2(1.5, 1.5)
+
+[node name="Armory" type="HSplitContainer" parent="Grimoire/TabContainer"]
+visible = false
+layout_mode = 2
+dragger_visibility = 2
+
+[node name="LeftPage" type="MarginContainer" parent="Grimoire/TabContainer/Armory"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBox" type="VBoxContainer" parent="Grimoire/TabContainer/Armory/LeftPage"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Grimoire/TabContainer/Armory/LeftPage/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.243137, 0.152941, 0.137255, 1)
+theme_override_font_sizes/font_size = 10
+text = "THE ARMORY"
+horizontal_alignment = 1
+
+[node name="Scroll" type="ScrollContainer" parent="Grimoire/TabContainer/Armory/LeftPage/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="UnlockedItems" type="VBoxContainer" parent="Grimoire/TabContainer/Armory/LeftPage/VBox/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RightPage" type="MarginContainer" parent="Grimoire/TabContainer/Armory"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="PreviewContainer" type="SubViewportContainer" parent="Grimoire/TabContainer/Armory/RightPage"]
+layout_mode = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Grimoire/TabContainer/Armory/RightPage/PreviewContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(2, 2)
+render_target_update_mode = 0
+
+[node name="WizardPreviewArmory" parent="Grimoire/TabContainer/Armory/RightPage/PreviewContainer/SubViewport" instance=ExtResource("5_wiz")]
 position = Vector2(55, 120)
 scale = Vector2(1.5, 1.5)
 
@@ -412,46 +459,53 @@ offset_top = -35.0
 offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_constants/separation = 15
+theme_override_constants/separation = 12
 alignment = 1
 
 [node name="StatsBtn" type="TextureButton" parent="Grimoire/Footer"]
-custom_minimum_size = Vector2(24, 24)
+custom_minimum_size = Vector2(22, 22)
 layout_mode = 2
 texture_normal = ExtResource("6_stats")
 ignore_texture_size = true
 stretch_mode = 5
 
 [node name="WorkshopBtn" type="TextureButton" parent="Grimoire/Footer"]
-custom_minimum_size = Vector2(24, 24)
+custom_minimum_size = Vector2(22, 22)
 layout_mode = 2
 texture_normal = ExtResource("4_anvil")
 ignore_texture_size = true
 stretch_mode = 5
 
+[node name="ArmoryBtn" type="TextureButton" parent="Grimoire/Footer"]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 2
+texture_normal = ExtResource("11_armor")
+ignore_texture_size = true
+stretch_mode = 5
+
 [node name="BarberBtn" type="TextureButton" parent="Grimoire/Footer"]
-custom_minimum_size = Vector2(24, 24)
+custom_minimum_size = Vector2(22, 22)
 layout_mode = 2
 texture_normal = ExtResource("7_barber")
 ignore_texture_size = true
 stretch_mode = 5
 
 [node name="SpellBtn" type="TextureButton" parent="Grimoire/Footer"]
-custom_minimum_size = Vector2(24, 24)
+custom_minimum_size = Vector2(22, 22)
 layout_mode = 2
 texture_normal = ExtResource("10_spell")
 ignore_texture_size = true
 stretch_mode = 5
 
 [node name="LibraryBtn" type="TextureButton" parent="Grimoire/Footer"]
-custom_minimum_size = Vector2(24, 24)
+custom_minimum_size = Vector2(22, 22)
 layout_mode = 2
 texture_normal = ExtResource("8_gear")
 ignore_texture_size = true
 stretch_mode = 5
 
 [node name="CloseBtn" type="TextureButton" parent="Grimoire/Footer"]
-custom_minimum_size = Vector2(24, 24)
+custom_minimum_size = Vector2(22, 22)
 layout_mode = 2
 texture_normal = ExtResource("9_close")
 ignore_texture_size = true
@@ -468,6 +522,7 @@ stretch_mode = 5
 [connection signal="pressed" from="Grimoire/Footer/StatsBtn" to="." method="_on_nav_btn_pressed" binds= [0]]
 [connection signal="pressed" from="Grimoire/Footer/WorkshopBtn" to="." method="_on_nav_btn_pressed" binds= [1]]
 [connection signal="pressed" from="Grimoire/Footer/BarberBtn" to="." method="_on_nav_btn_pressed" binds= [2]]
-[connection signal="pressed" from="Grimoire/Footer/SpellBtn" to="." method="_on_nav_btn_pressed" binds= [3]]
-[connection signal="pressed" from="Grimoire/Footer/LibraryBtn" to="." method="_on_nav_btn_pressed" binds= [4]]
+[connection signal="pressed" from="Grimoire/Footer/ArmoryBtn" to="." method="_on_nav_btn_pressed" binds= [3]]
+[connection signal="pressed" from="Grimoire/Footer/SpellBtn" to="." method="_on_nav_btn_pressed" binds= [4]]
+[connection signal="pressed" from="Grimoire/Footer/LibraryBtn" to="." method="_on_nav_btn_pressed" binds= [5]]
 [connection signal="pressed" from="Grimoire/Footer/CloseBtn" to="." method="_on_close_button_pressed"]

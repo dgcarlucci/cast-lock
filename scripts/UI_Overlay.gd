@@ -1,6 +1,6 @@
 extends Control
 
-signal craft_pressed # Deprecated but keeping for compatibility
+signal craft_pressed
 signal appearance_changed
 
 @onready var gold_label = $TopBar/GoldLabel
@@ -13,7 +13,10 @@ signal appearance_changed
 @onready var tab_container = $Grimoire/TabContainer
 @onready var stats_label = $Grimoire/TabContainer/Stats/LeftPage/VBox/StatsLabel
 @onready var combat_label = $Grimoire/TabContainer/Stats/RightPage/VBox/Label
-@onready var wizard_preview = $Grimoire/TabContainer/Barber/RightPage/PreviewContainer/SubViewport/WizardPreview
+
+# Previews
+@onready var wizard_preview_barber = $Grimoire/TabContainer/Barber/RightPage/PreviewContainer/SubViewport/WizardPreviewBarber
+@onready var wizard_preview_armory = $Grimoire/TabContainer/Armory/RightPage/PreviewContainer/SubViewport/WizardPreviewArmory
 
 # Spell UI
 @onready var spell_list_container = $Grimoire/TabContainer/Spells/LeftPage/VBox/SpellList
@@ -29,8 +32,8 @@ signal appearance_changed
 @onready var item_info = $Grimoire/TabContainer/Workshop/RightPage/VBox/ItemInfo
 @onready var research_button = $Grimoire/TabContainer/Workshop/RightPage/VBox/ResearchButton
 
-# Barber UI
-@onready var unlocked_items_container = $Grimoire/TabContainer/Barber/LeftPage/VBox/Scroll/UnlockedItems
+# Armory UI (List of unlocked styles)
+@onready var unlocked_items_container = $Grimoire/TabContainer/Armory/LeftPage/VBox/Scroll/UnlockedItems
 
 var loot_log: Array = []
 var selected_spell_id: String = "magic_missile"
@@ -40,6 +43,7 @@ func _ready():
 	update_stats()
 	update_spell_ui()
 	update_workshop_ui()
+	update_armory_ui()
 	grimoire.visible = false
 	grimoire.scale = Vector2(0.5, 0.5)
 	grimoire.modulate.a = 0
@@ -54,7 +58,8 @@ func _open_grimoire():
 	update_stats()
 	update_spell_ui()
 	update_workshop_ui()
-	wizard_preview.update_appearance(StatsManager.stats)
+	update_armory_ui()
+	_update_all_previews()
 	grimoire.visible = true
 	var tween = get_tree().create_tween().set_parallel(true)
 	tween.tween_property(grimoire, "scale", Vector2(1.0, 1.0), 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
@@ -66,19 +71,51 @@ func _close_grimoire():
 	tween.tween_property(grimoire, "modulate:a", 0.0, 0.2)
 	tween.chain().tween_callback(func(): grimoire.visible = false)
 
+func _update_all_previews():
+	wizard_preview_barber.update_appearance(StatsManager.stats)
+	wizard_preview_armory.update_appearance(StatsManager.stats)
+
 func _on_nav_btn_pressed(index: int):
 	tab_container.current_tab = index
 	if index == 0: update_stats()
 	elif index == 1: update_workshop_ui()
-	elif index == 2: update_barber_ui()
-	elif index == 3: update_spell_ui()
+	elif index == 2: update_armory_ui()
+	elif index == 4: update_spell_ui()
+	_update_all_previews()
 
-func update_barber_ui():
-	for child in unlocked_items_container.get_children(): child.queue_free()
-	
+func _on_close_button_pressed():
+	_close_grimoire()
+
+func _on_save_button_pressed():
+	StatsManager.save_stats()
+	show_floating_text("PROGRESS SAVED", Color.GREEN)
+
+# --- BARBER SHOP (Colors & Grooming) ---
+func _on_randomize_button_pressed():
 	var stats = StatsManager.stats
-	
-	# Headers and buttons for each category
+	stats.robe_color = Color(randf(), randf(), randf())
+	stats.hat_color = stats.robe_color
+	stats.skin_color = Color(0.8 + randf() * 0.2, 0.6 + randf() * 0.2, 0.5 + randf() * 0.2)
+	stats.hair_color = Color(randf(), randf(), randf())
+	appearance_changed.emit()
+	_update_all_previews()
+
+func _on_beard_toggle_pressed():
+	var stats = StatsManager.stats
+	stats.beard_style = 1 if stats.beard_style == 0 else 0
+	appearance_changed.emit()
+	_update_all_previews()
+
+func _on_hair_toggle_pressed():
+	var stats = StatsManager.stats
+	stats.hair_style = 1 if stats.hair_style == 0 else 0
+	appearance_changed.emit()
+	_update_all_previews()
+
+# --- ARMORY (Styles & Gear Selection) ---
+func update_armory_ui():
+	for child in unlocked_items_container.get_children(): child.queue_free()
+	var stats = StatsManager.stats
 	for cat_id in EquipmentManager.categories.keys():
 		var label = Label.new()
 		label.text = EquipmentManager.categories[cat_id]["name"]
@@ -88,7 +125,6 @@ func update_barber_ui():
 		
 		var unlocked_tier = stats.unlocked_tiers.get(cat_id, 1)
 		var items = EquipmentManager.get_category_items(cat_id)
-		
 		for i in range(unlocked_tier):
 			if i < items.size():
 				var item = items[i]
@@ -98,47 +134,16 @@ func update_barber_ui():
 				btn.pressed.connect(_on_equip_item_pressed.bind(cat_id, item.get("tier")))
 				unlocked_items_container.add_child(btn)
 
-func _on_close_button_pressed():
-	_close_grimoire()
-
-func _on_save_button_pressed():
-	StatsManager.save_stats()
-	show_floating_text("PROGRESS SAVED", Color.GREEN)
-
-# Barber Shop Logic
-func _on_randomize_button_pressed():
-	var stats = StatsManager.stats
-	stats.robe_color = Color(randf(), randf(), randf())
-	stats.hat_color = stats.robe_color
-	stats.skin_color = Color(0.8 + randf() * 0.2, 0.6 + randf() * 0.2, 0.5 + randf() * 0.2)
-	stats.hair_color = Color(randf(), randf(), randf())
-	appearance_changed.emit()
-	wizard_preview.update_appearance(stats)
-
-func _on_beard_toggle_pressed():
-	var stats = StatsManager.stats
-	stats.beard_style = 1 if stats.beard_style == 0 else 0
-	appearance_changed.emit()
-	wizard_preview.update_appearance(stats)
-
-func _on_hair_toggle_pressed():
-	var stats = StatsManager.stats
-	stats.hair_style = 1 if stats.hair_style == 0 else 0
-	appearance_changed.emit()
-	wizard_preview.update_appearance(stats)
-
-# Equipment Customization (Barber Shop Extension)
 func _on_equip_item_pressed(category: String, tier: int):
 	var stats = StatsManager.stats
 	if category == "main_hand": stats.main_hand_style = tier
 	elif category == "head": stats.hat_style = tier
 	elif category == "body": stats.robe_style = tier
-	
 	appearance_changed.emit()
-	wizard_preview.update_appearance(stats)
-	update_stats() # Refresh total stats if visual tier affects it (though we give boosts on research)
+	_update_all_previews()
+	update_stats()
 
-# Workshop Logic
+# --- WORKSHOP (Research & Blueprints) ---
 func _on_equip_cat_select(cat_id: String):
 	selected_equip_cat = cat_id
 	update_workshop_ui()
@@ -146,35 +151,31 @@ func _on_equip_cat_select(cat_id: String):
 func _on_research_button_pressed():
 	var stats = StatsManager.stats
 	var current_tier = stats.unlocked_tiers.get(selected_equip_cat, 1)
-	
-	var item = EquipmentManager.get_item_data(selected_equip_cat, current_tier) # Item at current_tier index is tier+1
+	var item = EquipmentManager.get_item_data(selected_equip_cat, current_tier)
 	if not item: return
 	
 	if stats.gold >= item.get("cost", 0):
 		stats.gold -= item.get("cost", 0)
-		# Unlock the tier
 		stats.unlocked_tiers[selected_equip_cat] = item.get("tier", 1)
-		
-		# Auto-equip new research?
+		# Auto-equip
 		if selected_equip_cat == "main_hand": stats.main_hand_style = item.get("tier", 1)
 		elif selected_equip_cat == "head": stats.hat_style = item.get("tier", 1)
 		elif selected_equip_cat == "body": stats.robe_style = item.get("tier", 1)
-		
-		# Permanent Stat Boost
+		# Boosts
 		if item.has("power_boost"): stats.attack_power += item.get("power_boost", 0)
 		if item.has("haste_boost"): stats.haste += item.get("haste_boost", 0)
-			
 		show_floating_text("RESEARCH COMPLETE!", Color.GOLD)
 		update_stats()
 		update_workshop_ui()
+		update_armory_ui()
 		appearance_changed.emit()
+		_update_all_previews()
 		StatsManager.save_stats()
 	else:
 		show_floating_text("NOT ENOUGH GOLD!", Color.RED)
 
 func update_workshop_ui():
 	for child in equip_list_container.get_children(): child.queue_free()
-	
 	for cat_id in EquipmentManager.categories.keys():
 		var btn = Button.new()
 		btn.add_theme_font_size_override("font_size", 8)
@@ -185,8 +186,6 @@ func update_workshop_ui():
 		
 	var stats = StatsManager.stats
 	var current_unlocked = stats.unlocked_tiers.get(selected_equip_cat, 1)
-	
-	# Next available is at index = current_unlocked (since 0-based index and tier 1 is index 0)
 	var item = EquipmentManager.get_item_data(selected_equip_cat, current_unlocked)
 	if item:
 		item_title.text = "Blueprint: " + item.get("name", "Unknown Item")
@@ -200,12 +199,12 @@ func update_workshop_ui():
 		research_button.disabled = false
 	else:
 		item_title.text = "Maximum Research"
-		item_info.text = "You have unlocked all currently known blueprints for this category."
+		item_info.text = "All blueprints unlocked for this category."
 		item_preview.visible = false
 		research_button.text = "MAXED"
 		research_button.disabled = true
 
-# Spell Book Logic
+# --- SPELL BOOK (Training & Mastery) ---
 func _on_spell_select_pressed(spell_id: String):
 	selected_spell_id = spell_id
 	update_spell_ui()
@@ -214,10 +213,8 @@ func _on_train_spell_pressed():
 	var stats = StatsManager.stats
 	if not stats.learned_spells.has(selected_spell_id):
 		stats.learned_spells[selected_spell_id] = {"rank": 1, "mastery": 0}
-		
 	var s_data = stats.learned_spells.get(selected_spell_id)
 	var cost = SpellManager.get_training_cost(selected_spell_id, s_data.get("rank", 1))
-	
 	if stats.gold >= cost:
 		stats.gold -= cost
 		s_data["rank"] = s_data.get("rank", 1) + 1
@@ -253,15 +250,12 @@ func update_spell_ui():
 	spell_title.text = SpellManager.get_spell_name(selected_spell_id, s_data.get("rank", 1))
 	equip_button.visible = stats.learned_spells.has(selected_spell_id)
 	equip_button.disabled = (selected_spell_id == stats.active_spell_id)
-	
 	var spell_cfg = SpellManager.spells.get(selected_spell_id, {})
-	var desc = spell_cfg.get("description", "No description available.")
-	spell_info.text = desc + "\n\nRank: %d\nMastery: %d / 100" % [s_data.get("rank", 1), s_data.get("mastery", 0)]
-	
+	spell_info.text = spell_cfg.get("description", "") + "\n\nRank: %d\nMastery: %d / 100" % [s_data.get("rank", 1), s_data.get("mastery", 0)]
 	train_button.text = "TRAIN (%dG)" % SpellManager.get_training_cost(selected_spell_id, s_data.get("rank", 1))
 	train_button.visible = SpellManager.is_spell_unlocked(selected_spell_id, stats.learned_spells)
 
-# Stats Logic
+# --- GLOBAL STATS ---
 func update_stats():
 	var stats = StatsManager.stats
 	if not stats: return
