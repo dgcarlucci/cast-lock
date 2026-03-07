@@ -52,39 +52,82 @@ func play_cast_animation(callback: Callable):
 		return
 		
 	current_state = State.CAST
-	
-	var tween = get_tree().create_tween()
-	
-	# Squish and stretch for "cuteness"
-	tween.tween_property(layers, "scale", Vector2(1.2, 0.8), 0.1)
-	tween.parallel().tween_property(layers, "position", Vector2(0, 5), 0.1)
-	
-	# Spawn Spell Visual
-	var spell_sprite = Sprite2D.new()
 	var spell_id = StatsManager.stats.active_spell_id
-	spell_sprite.texture = load(SpellManager.get_spell_visual_path(spell_id))
-	spell_sprite.scale = Vector2(0.5, 0.5)
-	spell_sprite.position = layers.position + Vector2(20, -30)
-	add_child(spell_sprite)
 	
-	tween.tween_property(layers, "scale", Vector2(0.8, 1.2), 0.1)
-	tween.parallel().tween_property(layers, "position", Vector2(0, -20), 0.1)
-	
-	# Launch spell towards enemy position (approx 100px right)
-	var spell_tween = get_tree().create_tween()
-	spell_tween.tween_property(spell_sprite, "position", spell_sprite.position + Vector2(100, 0), 0.2)
-	spell_tween.parallel().tween_property(spell_sprite, "scale", Vector2(1.0, 1.0), 0.2)
-	spell_tween.tween_callback(spell_sprite.queue_free)
+	if spell_id == "magic_missile":
+		_animate_magic_missile(callback)
+	elif spell_id == "fireball":
+		_animate_fireball(callback)
+	else:
+		# Fallback
+		_animate_generic_spell(callback)
+
+func _animate_magic_missile(callback: Callable):
+	var tween = get_tree().create_tween()
+	# Multi-shot feel
+	for i in range(3):
+		tween.tween_property(layers, "position", Vector2(5, 0), 0.05)
+		tween.tween_callback(func(): _spawn_projectile(Vector2(20, -30), 0.15))
+		tween.tween_property(layers, "position", Vector2(0, 0), 0.05)
+		tween.tween_interval(0.05)
 	
 	tween.tween_callback(func(): 
 		current_state = State.RECOVER
 		callback.call()
 	)
-	
-	# RECOVER Phase: Land and bounce
-	tween.tween_property(layers, "scale", Vector2(1.0, 1.0), 0.2).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
-	tween.parallel().tween_property(layers, "position", Vector2(0, 0), 0.2).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
+	tween.tween_interval(0.1)
+	tween.tween_callback(func(): current_state = State.IDLE)
+
+func _animate_fireball(callback: Callable):
+	var tween = get_tree().create_tween()
+	# Heavy charge up
+	tween.tween_property(layers, "scale", Vector2(1.3, 0.7), 0.3)
+	tween.parallel().tween_property(layers, "modulate", Color(2, 1, 1), 0.3) # Red glow
 	
 	tween.tween_callback(func(): 
-		current_state = State.IDLE
+		_spawn_projectile(Vector2(20, -40), 0.4, 2.0, true) # Large arcing fireball
 	)
+	
+	tween.tween_property(layers, "scale", Vector2(0.7, 1.3), 0.1)
+	tween.parallel().tween_property(layers, "modulate", Color.WHITE, 0.1)
+	tween.tween_property(layers, "scale", Vector2(1.0, 1.0), 0.2)
+	
+	tween.tween_callback(func(): 
+		current_state = State.RECOVER
+		callback.call()
+	)
+	tween.tween_interval(0.3)
+	tween.tween_callback(func(): current_state = State.IDLE)
+
+func _animate_generic_spell(callback: Callable):
+	var tween = get_tree().create_tween()
+	tween.tween_property(layers, "scale", Vector2(1.2, 0.8), 0.1)
+	tween.tween_callback(func(): _spawn_projectile(Vector2(20, -30), 0.2))
+	tween.tween_property(layers, "scale", Vector2(1.0, 1.0), 0.1)
+	tween.tween_callback(func(): 
+		current_state = State.RECOVER
+		callback.call()
+	)
+	tween.tween_callback(func(): current_state = State.IDLE)
+
+func _spawn_projectile(start_offset: Vector2, speed: float, scale_mult: float = 1.0, arc: bool = false):
+	var spell_sprite = Sprite2D.new()
+	var spell_id = StatsManager.stats.active_spell_id
+	spell_sprite.texture = load(SpellManager.get_spell_visual_path(spell_id))
+	spell_sprite.scale = Vector2(0.5, 0.5) * scale_mult
+	spell_sprite.position = layers.position + start_offset
+	add_child(spell_sprite)
+	
+	var stween = get_tree().create_tween().set_parallel(true)
+	var target_pos = spell_sprite.position + Vector2(100, 0)
+	
+	if arc:
+		stween.tween_property(spell_sprite, "position:x", target_pos.x, speed)
+		var y_tween = get_tree().create_tween()
+		y_tween.tween_property(spell_sprite, "position:y", spell_sprite.position.y - 30, speed/2.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		y_tween.tween_property(spell_sprite, "position:y", spell_sprite.position.y, speed/2.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	else:
+		stween.tween_property(spell_sprite, "position", target_pos, speed)
+		
+	stween.tween_property(spell_sprite, "modulate:a", 0.0, speed).set_delay(speed * 0.8)
+	stween.chain().tween_callback(spell_sprite.queue_free)
