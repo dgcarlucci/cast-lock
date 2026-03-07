@@ -297,7 +297,7 @@ func update_stats():
 	level_label.text = "LVL: " + str(stats.level)
 	xp_bar.max_value = StatsManager.get_xp_needed()
 	xp_bar.value = stats.xp
-	stats_label.text = "Wizard Level: %d\nExperience: %d / %d\nTotal Gold: %d" % [stats.level, stats.xp, StatsManager.get_xp_needed(), int(stats.gold)]
+	stats_label.text = "Wizard Level: %d\nExperience: %d / %d\nTotal Gold: %d\nLifetime Casts: %d" % [stats.level, stats.xp, StatsManager.get_xp_needed(), int(stats.gold), stats.total_casts]
 	combat_label.text = "COMBAT SKILLS\n\nAttack Power: %.1f\nCrit Chance: %.1f%%\nAttack Speed: %.2f" % [stats.attack_power, stats.crit_chance * 100.0, stats.haste]
 
 func update_enemy_health(current, max_hp):
