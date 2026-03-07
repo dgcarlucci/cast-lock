@@ -1,4 +1,5 @@
 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Simple Hair peeking out -->
-  <path d="M18 24C18 24 20 16 32 16C44 16 46 24 46 24" stroke="white" stroke-width="4" stroke-linecap="round"/>
+  <!-- Messy Hair -->
+  <path d="M18 24C16 20 18 10 32 8C46 10 48 20 46 24" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+  <path d="M16 26L14 30M48 26L50 30" stroke="#333" stroke-width="2" stroke-linecap="round"/>
 </svg>

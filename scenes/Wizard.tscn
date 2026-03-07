@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/Wizard.gd" id="1_x8b7l"]
 [ext_resource type="Texture2D" path="res://resources/wizard/body.svg" id="2_body"]
@@ -7,9 +7,15 @@
 [ext_resource type="Texture2D" path="res://resources/wizard/eyes_cute.svg" id="5_eyes"]
 [ext_resource type="Texture2D" path="res://resources/wizard/hair_basic.svg" id="6_hair"]
 [ext_resource type="Texture2D" path="res://resources/wizard/beard_basic.svg" id="7_beard"]
+[ext_resource type="Texture2D" path="res://resources/wizard/shadow.svg" id="8_shadow"]
 
 [node name="Wizard" type="Node2D"]
 script = ExtResource("1_x8b7l")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+texture = ExtResource("8_shadow")
+centered = false
+offset = Vector2(-32, -64)
 
 [node name="Layers" type="Node2D" parent="."]
 

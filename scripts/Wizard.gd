@@ -10,25 +10,42 @@ var current_state: State = State.IDLE
 @onready var hair = $Layers/Hair
 @onready var beard = $Layers/Beard
 @onready var layers = $Layers
+@onready var shadow = $Shadow
 
 func _ready():
 	# Initial update to match stats
 	update_appearance(StatsManager.stats)
+	start_idle_animation()
 
 func update_appearance(stats: WizardStats):
 	body.modulate = stats.skin_color
 	robe.modulate = stats.robe_color
 	hat.modulate = stats.hat_color
-	eyes.modulate = stats.eye_color
 	hair.modulate = stats.hair_color
 	beard.modulate = stats.hair_color
 	
-	# Visibility logic based on styles (0 usually means none or basic)
+	# Eyes are usually black/white based on the SVG, 
+	# but we can tint the eye color if needed.
+	# If eye_color is default black, modulation won't show on white highlights.
+	# We use a special modulation for custom eye colors if they aren't black.
+	if stats.eye_color != Color.BLACK:
+		eyes.modulate = stats.eye_color
+	else:
+		eyes.modulate = Color.WHITE # Reset to SVG colors
+	
 	hair.visible = stats.hair_style > 0
 	beard.visible = stats.beard_style > 0
+
+func start_idle_animation():
+	var tween = get_tree().create_tween().set_loops()
+	# Slow breathing (squash/stretch)
+	tween.tween_property(layers, "scale", Vector2(1.02, 0.98), 1.5).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(layers, "scale", Vector2(1.0, 1.0), 1.5).set_trans(Tween.TRANS_SINE)
 	
-	# In a full system, you'd load different textures based on styles:
-	# robe.texture = load("res://resources/wizard/robe_" + str(stats.robe_style) + ".svg")
+	# Subtle shadow scale
+	var shadow_tween = get_tree().create_tween().set_loops()
+	shadow_tween.tween_property(shadow, "scale", Vector2(1.1, 1.1), 1.5).set_trans(Tween.TRANS_SINE)
+	shadow_tween.tween_property(shadow, "scale", Vector2(1.0, 1.0), 1.5).set_trans(Tween.TRANS_SINE)
 
 func play_cast_animation(callback: Callable):
 	if current_state != State.IDLE:

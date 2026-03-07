@@ -1,5 +1,7 @@
 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Simple Robe -->
-  <path d="M18 40L22 60H42L46 40H18Z" fill="white"/>
-  <path d="M18 40C18 40 25 36 32 36C39 36 46 40 46 40" stroke="white" stroke-width="2"/>
+  <!-- Robe with sleeves and collar -->
+  <path d="M20 42L12 52L16 56L22 48H42L48 56L52 52L44 42H20Z" fill="white" stroke="#333" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M22 48V60H42V48" fill="white" stroke="#333" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Collar detail -->
+  <path d="M26 42C26 42 28 46 32 46C36 46 38 42 38 42" stroke="#333" stroke-width="2"/>
 </svg>

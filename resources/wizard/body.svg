@@ -1,4 +1,6 @@
 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Cute Round Head -->
-  <circle cx="32" cy="28" r="14" fill="white"/>
+  <!-- Head Shape with cheeks -->
+  <path d="M18 28C18 20 24 14 32 14C40 14 46 20 46 28C46 36 40 42 32 42C24 42 18 36 18 28Z" fill="white" stroke="#333" stroke-width="2"/>
+  <!-- Neck -->
+  <path d="M28 41V44H36V41" stroke="#333" stroke-width="2" stroke-linecap="round"/>
 </svg>

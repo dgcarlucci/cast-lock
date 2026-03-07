@@ -1,5 +1,7 @@
 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Pointy Wizard Hat -->
-  <path d="M10 24C10 22 15 20 32 20C49 20 54 22 54 24C54 26 49 28 32 28C15 28 10 26 10 24Z" fill="white"/>
-  <path d="M18 22L32 2L46 22" fill="white"/>
+  <!-- Floppy Wizard Hat -->
+  <path d="M12 24C12 21 20 18 32 18C44 18 52 21 52 24C52 27 44 30 32 30C20 30 12 27 12 24Z" fill="white" stroke="#333" stroke-width="2"/>
+  <path d="M20 22C20 22 22 8 32 4C38 1 44 8 42 14L40 22" fill="white" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+  <!-- Hat Band -->
+  <path d="M22 22C28 20 36 20 42 22" stroke="#333" stroke-width="2" opacity="0.5"/>
 </svg>
