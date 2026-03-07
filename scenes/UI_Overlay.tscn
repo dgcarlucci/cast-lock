@@ -87,9 +87,9 @@ vertical_alignment = 2
 [node name="PlaterBar" type="ProgressBar" parent="."]
 layout_mode = 0
 offset_left = 160.0
-offset_top = 150.0
+offset_top = 70.0
 offset_right = 240.0
-offset_bottom = 160.0
+offset_bottom = 80.0
 value = 100.0
 show_percentage = false
 
