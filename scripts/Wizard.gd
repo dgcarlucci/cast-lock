@@ -47,10 +47,16 @@ func start_idle_animation():
 	var tween = get_tree().create_tween().set_loops()
 	tween.tween_property(layers, "scale", Vector2(1.02, 0.98), 1.5).set_trans(Tween.TRANS_SINE)
 	tween.tween_property(layers, "scale", Vector2(1.0, 1.0), 1.5).set_trans(Tween.TRANS_SINE)
-	
+	# Subtle shadow scale
 	var shadow_tween = get_tree().create_tween().set_loops()
 	shadow_tween.tween_property(shadow, "scale", Vector2(1.1, 1.1), 1.5).set_trans(Tween.TRANS_SINE)
 	shadow_tween.tween_property(shadow, "scale", Vector2(1.0, 1.0), 1.5).set_trans(Tween.TRANS_SINE)
+
+	# Subtle weapon bobbing
+	var weapon_tween = get_tree().create_tween().set_loops()
+	weapon_tween.tween_property(weapon, "position", Vector2(18, -14), 1.5).set_trans(Tween.TRANS_SINE)
+	weapon_tween.tween_property(weapon, "position", Vector2(18, -12), 1.5).set_trans(Tween.TRANS_SINE)
+
 
 func play_cast_animation(callback: Callable):
 	if current_state != State.IDLE:

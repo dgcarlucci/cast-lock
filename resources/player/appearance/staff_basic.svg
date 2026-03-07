@@ -1,7 +1,9 @@
 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Tall Staff -->
-  <path d="M40 10L25 55" stroke="#5d4037" stroke-width="5" stroke-linecap="round"/>
+  <!-- Tall Staff oriented for hand -->
+  <path d="M32 55L45 5" stroke="#5d4037" stroke-width="5" stroke-linecap="round"/>
+  <!-- Grip area -->
+  <rect x="28" y="45" width="8" height="10" rx="2" fill="#3e2723"/>
   <!-- Crystal Top -->
-  <path d="M38 5L45 12L40 18L33 11L38 5Z" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
-  <path d="M38 8L41 12" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+  <path d="M42 2L50 10L45 18L37 10L42 2Z" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+  <path d="M42 5L45 9" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
 </svg>

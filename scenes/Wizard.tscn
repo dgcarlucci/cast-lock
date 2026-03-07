@@ -31,6 +31,7 @@ centered = false
 offset = Vector2(-32, -64)
 
 [node name="Weapon" type="Sprite2D" parent="Layers"]
+position = Vector2(18, -12)
 texture = ExtResource("9_wand")
 centered = false
 offset = Vector2(-32, -64)
