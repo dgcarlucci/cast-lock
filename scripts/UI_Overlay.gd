@@ -117,7 +117,7 @@ func _on_idle_mode_toggled(toggled_on: bool):
 	appearance_changed.emit()
 	StatsManager.save_stats()
 
-# --- BARBER SHOP (Colors & Grooming) ---
+# --- BARBER SHOP ---
 func _on_randomize_button_pressed():
 	var stats = StatsManager.stats
 	stats.robe_color = Color(randf(), randf(), randf())
@@ -139,7 +139,7 @@ func _on_hair_toggle_pressed():
 	appearance_changed.emit()
 	_update_all_previews()
 
-# --- ARMORY (Styles & Gear Selection) ---
+# --- ARMORY ---
 func update_armory_ui():
 	for child in unlocked_items_container.get_children(): child.queue_free()
 	var stats = StatsManager.stats
@@ -150,9 +150,14 @@ func update_armory_ui():
 		label.add_theme_color_override("font_color", Color.SADDLE_BROWN)
 		unlocked_items_container.add_child(label)
 		
-		var unlocked_tier = stats.unlocked_tiers.get(cat_id, 1)
+		var unlocked_tier = stats.unlocked_tiers.get(cat_id, 0)
 		var items = EquipmentManager.get_category_items(cat_id)
-		for i in range(unlocked_tier):
+		
+		# If it's a category that starts with tier 1 (like weapon), show at least one
+		var display_count = unlocked_tier
+		if cat_id != "accessories" and display_count == 0: display_count = 1
+		
+		for i in range(display_count):
 			if i < items.size():
 				var item = items[i]
 				var btn = Button.new()
@@ -166,29 +171,29 @@ func _on_equip_item_pressed(category: String, tier: int):
 	if category == "main_hand": stats.main_hand_style = tier
 	elif category == "head": stats.hat_style = tier
 	elif category == "body": stats.robe_style = tier
+	elif category == "accessories": stats.accessory_style = tier
 	appearance_changed.emit()
 	_update_all_previews()
 	update_stats()
 
-# --- WORKSHOP (Research & Blueprints) ---
+# --- WORKSHOP ---
 func _on_equip_cat_select(cat_id: String):
 	selected_equip_cat = cat_id
 	update_workshop_ui()
 
 func _on_research_button_pressed():
 	var stats = StatsManager.stats
-	var current_tier = stats.unlocked_tiers.get(selected_equip_cat, 1)
+	var current_tier = stats.unlocked_tiers.get(selected_equip_cat, 0)
 	var item = EquipmentManager.get_item_data(selected_equip_cat, current_tier)
 	if not item: return
 	
 	if stats.gold >= item.get("cost", 0):
 		stats.gold -= item.get("cost", 0)
 		stats.unlocked_tiers[selected_equip_cat] = item.get("tier", 1)
-		# Auto-equip
 		if selected_equip_cat == "main_hand": stats.main_hand_style = item.get("tier", 1)
 		elif selected_equip_cat == "head": stats.hat_style = item.get("tier", 1)
 		elif selected_equip_cat == "body": stats.robe_style = item.get("tier", 1)
-		# Boosts
+		elif selected_equip_cat == "accessories": stats.accessory_style = item.get("tier", 1)
 		if item.has("power_boost"): stats.attack_power += item.get("power_boost", 0)
 		if item.has("haste_boost"): stats.haste += item.get("haste_boost", 0)
 		show_floating_text("RESEARCH COMPLETE!", Color.GOLD)
@@ -212,7 +217,7 @@ func update_workshop_ui():
 		equip_list_container.add_child(btn)
 		
 	var stats = StatsManager.stats
-	var current_unlocked = stats.unlocked_tiers.get(selected_equip_cat, 1)
+	var current_unlocked = stats.unlocked_tiers.get(selected_equip_cat, 0)
 	var item = EquipmentManager.get_item_data(selected_equip_cat, current_unlocked)
 	if item:
 		item_title.text = "Blueprint: " + item.get("name", "Unknown Item")
@@ -231,7 +236,7 @@ func update_workshop_ui():
 		research_button.text = "MAXED"
 		research_button.disabled = true
 
-# --- SPELL BOOK (Training & Mastery) ---
+# --- SPELLS ---
 func _on_spell_select_pressed(spell_id: String):
 	selected_spell_id = spell_id
 	update_spell_ui()

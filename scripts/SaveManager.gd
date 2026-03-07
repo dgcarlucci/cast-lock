@@ -19,6 +19,8 @@ func save_game(stats: WizardStats):
 		"hat_style": stats.hat_style,
 		"hair_style": stats.hair_style,
 		"beard_style": stats.beard_style,
+		"main_hand_style": stats.main_hand_style,
+		"accessory_style": stats.accessory_style,
 		"active_spell_id": stats.active_spell_id,
 		"learned_spells": stats.learned_spells,
 		"spell_mastery_xp": stats.spell_mastery_xp,
@@ -32,8 +34,6 @@ func save_game(stats: WizardStats):
 	if file:
 		file.store_string(json_string)
 		file.close()
-		# Only print in debug or just remove to clean up logs
-		# print("Game saved!")
 
 func load_game() -> Dictionary:
 	if not FileAccess.file_exists(SAVE_PATH):

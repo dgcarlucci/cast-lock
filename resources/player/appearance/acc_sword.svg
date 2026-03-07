@@ -1,0 +1,6 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Simple sword in scabbard -->
+  <path d="M38 35L42 60" stroke="#333" stroke-width="4" stroke-linecap="round"/>
+  <path d="M35 38L41 38" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+  <path d="M38 32L38 38" stroke="#8b4513" stroke-width="4" stroke-linecap="round"/>
+</svg>

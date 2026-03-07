@@ -17,16 +17,19 @@ class_name WizardStats
 @export var hair_color: Color = Color("ffffff") # Default white/grey
 @export var robe_style: int = 0
 @export var hat_style: int = 0
-@export var hair_style: int = 1
-@export var beard_style: int = 1
+@export var robe_style: int = 0
+@export var hat_style: int = 0
 @export var main_hand_style: int = 1 # 0: None, 1: Wand, 2: Staff
 @export var off_hand_style: int = 0
+@export var accessory_style: int = 0
 
 @export var unlocked_tiers: Dictionary = {
 	"main_hand": 1,
 	"head": 1,
-	"body": 1
+	"body": 1,
+	"accessories": 0
 }
+
 
 @export_group("Spells")
 @export var active_spell_id: String = "magic_missile"

@@ -10,6 +10,7 @@ var current_state: State = State.IDLE
 @onready var hair = $Layers/Hair
 @onready var beard = $Layers/Beard
 @onready var weapon = $Layers/Weapon
+@onready var accessory = $Layers/Accessory
 @onready var layers = $Layers
 @onready var shadow = $Shadow
 
@@ -74,6 +75,20 @@ func update_appearance(stats: WizardStats):
 			weapon.texture = load("res://resources/player/appearance/staff_arcane.svg")
 		elif stats.main_hand_style == 5:
 			weapon.texture = load("res://resources/player/appearance/staff_dragon.svg")
+
+	# Accessory visibility and texture
+	if stats.accessory_style == 0:
+		accessory.visible = false
+	else:
+		accessory.visible = true
+		if stats.accessory_style == 1:
+			accessory.texture = load("res://resources/player/appearance/acc_book.svg")
+		elif stats.accessory_style == 2:
+			accessory.texture = load("res://resources/player/appearance/acc_pouch.svg")
+		elif stats.accessory_style == 3:
+			accessory.texture = load("res://resources/player/appearance/acc_bag.svg")
+		elif stats.accessory_style == 4:
+			accessory.texture = load("res://resources/player/appearance/acc_sword.svg")
 
 func start_idle_animation():
 	var tween = get_tree().create_tween().set_loops()

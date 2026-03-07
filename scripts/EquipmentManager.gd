@@ -29,6 +29,15 @@ var categories = {
 			{"id": "robe_sage", "name": "Sage's Vestment", "cost": 900, "power_boost": 15, "texture": "res://resources/player/appearance/robe_sage.svg", "tier": 3},
 			{"id": "robe_archmage", "name": "Archmage Gown", "cost": 3000, "power_boost": 40, "texture": "res://resources/player/appearance/robe_archmage.svg", "tier": 4}
 		]
+	},
+	"accessories": {
+		"name": "Waist Accessories",
+		"items": [
+			{"id": "acc_book", "name": "Waist Tome", "cost": 60, "power_boost": 3, "texture": "res://resources/player/appearance/acc_book.svg", "tier": 1},
+			{"id": "acc_pouch", "name": "Potion Pouch", "cost": 200, "haste_boost": 0.08, "texture": "res://resources/player/appearance/acc_pouch.svg", "tier": 2},
+			{"id": "acc_bag", "name": "Reagent Bag", "cost": 750, "power_boost": 10, "texture": "res://resources/player/appearance/acc_bag.svg", "tier": 3},
+			{"id": "acc_sword", "name": "Ceremonial Blade", "cost": 2000, "power_boost": 30, "texture": "res://resources/player/appearance/acc_sword.svg", "tier": 4}
+		]
 	}
 }
 

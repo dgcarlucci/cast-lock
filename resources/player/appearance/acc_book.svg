@@ -1,0 +1,6 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Small book hanging from belt -->
+  <rect x="35" y="40" width="12" height="16" rx="1" fill="#5d4037" stroke="#333" stroke-width="1.5"/>
+  <rect x="37" y="40" width="2" height="16" fill="#3e2723"/>
+  <path d="M35 45H47" stroke="#d4af37" stroke-width="1"/>
+</svg>

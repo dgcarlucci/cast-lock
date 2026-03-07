@@ -23,7 +23,6 @@ func load_or_create_stats():
 		stats.crit_chance = save_data.get("crit_chance", stats.crit_chance)
 		stats.haste = save_data.get("haste", stats.haste)
 		
-		# Load customization
 		if save_data.has("skin_color"): stats.skin_color = Color(save_data.skin_color)
 		if save_data.has("robe_color"): stats.robe_color = Color(save_data.robe_color)
 		if save_data.has("hat_color"): stats.hat_color = Color(save_data.hat_color)
@@ -34,6 +33,8 @@ func load_or_create_stats():
 		stats.hat_style = save_data.get("hat_style", stats.hat_style)
 		stats.hair_style = save_data.get("hair_style", stats.hair_style)
 		stats.beard_style = save_data.get("beard_style", stats.beard_style)
+		stats.main_hand_style = save_data.get("main_hand_style", stats.main_hand_style)
+		stats.accessory_style = save_data.get("accessory_style", stats.accessory_style)
 		
 		stats.active_spell_id = save_data.get("active_spell_id", stats.active_spell_id)
 		stats.learned_spells = save_data.get("learned_spells", stats.learned_spells)
@@ -46,14 +47,10 @@ func save_stats():
 	SaveManager.save_game(stats)
 
 func reset_data():
-	# Delete the JSON save file
 	var dir = DirAccess.open("user://")
 	if dir.file_exists("save_game.json"):
 		dir.remove("save_game.json")
-	
-	# Reset the resource to defaults
 	stats = WizardStats.new()
-	# Re-save the default state
 	save_stats()
 	print("Game data reset to defaults.")
 
