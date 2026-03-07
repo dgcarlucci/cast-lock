@@ -43,6 +43,16 @@ func update_appearance(stats: WizardStats):
 		robe.texture = load("res://resources/player/appearance/robe_sage.svg")
 	elif stats.robe_style == 4:
 		robe.texture = load("res://resources/player/appearance/robe_archmage.svg")
+	elif stats.robe_style == 5:
+		robe.texture = load("res://resources/player/appearance/robe_warlock.svg")
+	elif stats.robe_style == 6:
+		robe.texture = load("res://resources/player/appearance/robe_druid.svg")
+	elif stats.robe_style == 7:
+		robe.texture = load("res://resources/player/appearance/robe_necromancer.svg")
+	elif stats.robe_style == 8:
+		robe.texture = load("res://resources/player/appearance/robe_cosmic.svg")
+	elif stats.robe_style == 9:
+		robe.texture = load("res://resources/player/appearance/robe_infinite.svg")
 		
 	# Hat visibility and texture
 	if stats.hat_style == 0:
@@ -59,16 +69,25 @@ func update_appearance(stats: WizardStats):
 			hat.texture = load("res://resources/player/appearance/hat_sage.svg")
 		elif stats.hat_style == 5:
 			hat.texture = load("res://resources/player/appearance/hat_archmage.svg")
+		elif stats.hat_style == 6:
+			hat.texture = load("res://resources/player/appearance/hat_warlock.svg")
+		elif stats.hat_style == 7:
+			hat.texture = load("res://resources/player/appearance/hat_druid.svg")
+		elif stats.hat_style == 8:
+			hat.texture = load("res://resources/player/appearance/hat_necromancer.svg")
+		elif stats.hat_style == 9:
+			hat.texture = load("res://resources/player/appearance/hat_cosmic.svg")
+		elif stats.hat_style == 10:
+			hat.texture = load("res://resources/player/appearance/hat_infinite.svg")
 
 	# Weapon visibility and texture
 	if stats.main_hand_style == 0:
 		weapon.visible = false
 	else:
 		weapon.visible = true
-		weapon.modulate = Color.WHITE # Reset modulation to see full SVG colors
+		weapon.modulate = Color.WHITE
 		if stats.main_hand_style == 1:
 			weapon.texture = load("res://resources/player/appearance/wand_basic.svg")
-		# ... rest of weapons ...
 		elif stats.main_hand_style == 2:
 			weapon.texture = load("res://resources/player/appearance/staff_basic.svg")
 		elif stats.main_hand_style == 3:
@@ -76,13 +95,24 @@ func update_appearance(stats: WizardStats):
 		elif stats.main_hand_style == 4:
 			weapon.texture = load("res://resources/player/appearance/staff_arcane.svg")
 		elif stats.main_hand_style == 5:
+			weapon.texture = load("res://resources/player/appearance/wand_ebony.svg")
+		elif stats.main_hand_style == 6:
 			weapon.texture = load("res://resources/player/appearance/staff_dragon.svg")
+		elif stats.main_hand_style == 7:
+			weapon.texture = load("res://resources/player/appearance/wand_phoenix.svg")
+		elif stats.main_hand_style == 8:
+			weapon.texture = load("res://resources/player/appearance/staff_void.svg")
+		elif stats.main_hand_style == 9:
+			weapon.texture = load("res://resources/player/appearance/wand_celestial.svg")
+		elif stats.main_hand_style == 10:
+			weapon.texture = load("res://resources/player/appearance/staff_godly.svg")
 
 	# Accessory visibility and texture
 	if stats.accessory_style == 0:
 		accessory.visible = false
 	else:
 		accessory.visible = true
+		accessory.modulate = Color.WHITE
 		if stats.accessory_style == 1:
 			accessory.texture = load("res://resources/player/appearance/acc_book.svg")
 		elif stats.accessory_style == 2:
@@ -91,6 +121,16 @@ func update_appearance(stats: WizardStats):
 			accessory.texture = load("res://resources/player/appearance/acc_bag.svg")
 		elif stats.accessory_style == 4:
 			accessory.texture = load("res://resources/player/appearance/acc_sword.svg")
+		elif stats.accessory_style == 5:
+			accessory.texture = load("res://resources/player/appearance/acc_skull.svg")
+		elif stats.accessory_style == 6:
+			accessory.texture = load("res://resources/player/appearance/acc_lantern.svg")
+		elif stats.accessory_style == 7:
+			accessory.texture = load("res://resources/player/appearance/acc_orb.svg")
+		elif stats.accessory_style == 8:
+			accessory.texture = load("res://resources/player/appearance/acc_scroll.svg")
+		elif stats.accessory_style == 9:
+			accessory.texture = load("res://resources/player/appearance/acc_crystal.svg")
 
 func start_idle_animation():
 	var tween = get_tree().create_tween().set_loops()
