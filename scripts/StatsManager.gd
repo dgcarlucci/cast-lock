@@ -44,6 +44,18 @@ func load_or_create_stats():
 func save_stats():
 	SaveManager.save_game(stats)
 
+func reset_data():
+	# Delete the JSON save file
+	var dir = DirAccess.open("user://")
+	if dir.file_exists("save_game.json"):
+		dir.remove("save_game.json")
+	
+	# Reset the resource to defaults
+	stats = WizardStats.new()
+	# Re-save the default state
+	save_stats()
+	print("Game data reset to defaults.")
+
 func get_enemy_hp() -> float:
 	return enemy_data.get_hp_for_level(stats.level)
 

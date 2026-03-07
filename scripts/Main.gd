@@ -51,7 +51,7 @@ func _ready():
 	ui.appearance_changed.connect(_on_wizard_appearance_changed)
 	
 	spawn_enemy()
-	start_combat()
+	# Auto-attack timer disabled for typing-mage branch
 
 func _input(event):
 	if event is InputEventKey or event is InputEventMouseButton:
@@ -66,8 +66,6 @@ func _on_wizard_appearance_changed():
 	StatsManager.save_stats()
 
 func _on_ui_craft_pressed():
-	# This can stay for the Grimoire Workshop button or old logic
-	# We use the Workshop research logic now primarily
 	pass
 
 func spawn_enemy():
@@ -79,11 +77,12 @@ func spawn_enemy():
 	enemy.set_texture(tex)
 
 func start_combat():
-	attack_timer.wait_time = 1.5 / StatsManager.stats.haste
-	attack_timer.start()
+	# Passive combat disabled
+	pass
 
 func _on_attack_timer_timeout():
-	attack()
+	# No auto-attacks
+	pass
 
 func attack():
 	if wizard.current_state != wizard.State.IDLE or current_enemy_hp <= 0:

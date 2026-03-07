@@ -434,6 +434,12 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 9
 text = "SAVE PROGRESS"
 
+[node name="ResetButton" type="Button" parent="Grimoire/TabContainer/Library/LeftPage/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.905882, 0.298039, 0.235294, 1)
+theme_override_font_sizes/font_size = 9
+text = "RESET PROGRESS"
+
 [node name="RightPage" type="MarginContainer" parent="Grimoire/TabContainer/Library"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -511,6 +517,15 @@ texture_normal = ExtResource("9_close")
 ignore_texture_size = true
 stretch_mode = 5
 
+[node name="ResetConfirmation" type="ConfirmationDialog" parent="."]
+title = "Reset Progress?"
+initial_position = 2
+size = Vector2i(200, 100)
+unresizable = true
+ok_button_text = "YES, RESET"
+dialog_text = "Erase all progress? This cannot be undone."
+cancel_button_text = "NO"
+
 [connection signal="pressed" from="BookButton" to="." method="_on_book_button_pressed"]
 [connection signal="pressed" from="Grimoire/TabContainer/Workshop/RightPage/VBox/ResearchButton" to="." method="_on_research_button_pressed"]
 [connection signal="pressed" from="Grimoire/TabContainer/Barber/LeftPage/VBox/RandomizeButton" to="." method="_on_randomize_button_pressed"]
@@ -519,6 +534,7 @@ stretch_mode = 5
 [connection signal="pressed" from="Grimoire/TabContainer/Spells/RightPage/VBox/TrainButton" to="." method="_on_train_spell_pressed"]
 [connection signal="pressed" from="Grimoire/TabContainer/Spells/RightPage/VBox/EquipButton" to="." method="_on_equip_spell_pressed"]
 [connection signal="pressed" from="Grimoire/TabContainer/Library/LeftPage/VBox/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="Grimoire/TabContainer/Library/LeftPage/VBox/ResetButton" to="." method="_on_reset_button_pressed"]
 [connection signal="pressed" from="Grimoire/Footer/StatsBtn" to="." method="_on_nav_btn_pressed" binds= [0]]
 [connection signal="pressed" from="Grimoire/Footer/WorkshopBtn" to="." method="_on_nav_btn_pressed" binds= [1]]
 [connection signal="pressed" from="Grimoire/Footer/BarberBtn" to="." method="_on_nav_btn_pressed" binds= [2]]
@@ -526,3 +542,4 @@ stretch_mode = 5
 [connection signal="pressed" from="Grimoire/Footer/SpellBtn" to="." method="_on_nav_btn_pressed" binds= [4]]
 [connection signal="pressed" from="Grimoire/Footer/LibraryBtn" to="." method="_on_nav_btn_pressed" binds= [5]]
 [connection signal="pressed" from="Grimoire/Footer/CloseBtn" to="." method="_on_close_button_pressed"]
+[connection signal="confirmed" from="ResetConfirmation" to="." method="_on_reset_confirmed"]

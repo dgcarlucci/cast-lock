@@ -35,6 +35,8 @@ signal appearance_changed
 # Armory UI (List of unlocked styles)
 @onready var unlocked_items_container = $Grimoire/TabContainer/Armory/LeftPage/VBox/Scroll/UnlockedItems
 
+@onready var reset_confirmation = $ResetConfirmation
+
 var loot_log: Array = []
 var selected_spell_id: String = "magic_missile"
 var selected_equip_cat: String = "main_hand"
@@ -79,7 +81,7 @@ func _on_nav_btn_pressed(index: int):
 	tab_container.current_tab = index
 	if index == 0: update_stats()
 	elif index == 1: update_workshop_ui()
-	elif index == 2: update_armory_ui()
+	elif index == 3: update_armory_ui()
 	elif index == 4: update_spell_ui()
 	_update_all_previews()
 
@@ -89,6 +91,19 @@ func _on_close_button_pressed():
 func _on_save_button_pressed():
 	StatsManager.save_stats()
 	show_floating_text("PROGRESS SAVED", Color.GREEN)
+
+func _on_reset_button_pressed():
+	reset_confirmation.popup_centered()
+
+func _on_reset_confirmed():
+	StatsManager.reset_data()
+	update_stats()
+	update_spell_ui()
+	update_workshop_ui()
+	update_armory_ui()
+	_update_all_previews()
+	appearance_changed.emit()
+	show_floating_text("PROGRESS RESET", Color.RED)
 
 # --- BARBER SHOP (Colors & Grooming) ---
 func _on_randomize_button_pressed():
@@ -118,7 +133,7 @@ func update_armory_ui():
 	var stats = StatsManager.stats
 	for cat_id in EquipmentManager.categories.keys():
 		var label = Label.new()
-		label.text = EquipmentManager.categories[cat_id]["name"]
+		label.text = EquipmentManager.categories.get(cat_id).get("name", cat_id)
 		label.add_theme_font_size_override("font_size", 8)
 		label.add_theme_color_override("font_color", Color.SADDLE_BROWN)
 		unlocked_items_container.add_child(label)
@@ -130,8 +145,8 @@ func update_armory_ui():
 				var item = items[i]
 				var btn = Button.new()
 				btn.add_theme_font_size_override("font_size", 7)
-				btn.text = item.get("name")
-				btn.pressed.connect(_on_equip_item_pressed.bind(cat_id, item.get("tier")))
+				btn.text = item.get("name", "Item")
+				btn.pressed.connect(_on_equip_item_pressed.bind(cat_id, item.get("tier", 1)))
 				unlocked_items_container.add_child(btn)
 
 func _on_equip_item_pressed(category: String, tier: int):
