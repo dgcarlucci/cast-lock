@@ -56,12 +56,25 @@ func play_cast_animation(callback: Callable):
 	var tween = get_tree().create_tween()
 	
 	# Squish and stretch for "cuteness"
-	# CAST Phase: Squish down, then jump up
 	tween.tween_property(layers, "scale", Vector2(1.2, 0.8), 0.1)
 	tween.parallel().tween_property(layers, "position", Vector2(0, 5), 0.1)
 	
+	# Spawn Spell Visual
+	var spell_sprite = Sprite2D.new()
+	var spell_id = StatsManager.stats.active_spell_id
+	spell_sprite.texture = load(SpellManager.get_spell_visual_path(spell_id))
+	spell_sprite.scale = Vector2(0.5, 0.5)
+	spell_sprite.position = layers.position + Vector2(20, -30)
+	add_child(spell_sprite)
+	
 	tween.tween_property(layers, "scale", Vector2(0.8, 1.2), 0.1)
 	tween.parallel().tween_property(layers, "position", Vector2(0, -20), 0.1)
+	
+	# Launch spell towards enemy position (approx 100px right)
+	var spell_tween = get_tree().create_tween()
+	spell_tween.tween_property(spell_sprite, "position", spell_sprite.position + Vector2(100, 0), 0.2)
+	spell_tween.parallel().tween_property(spell_sprite, "scale", Vector2(1.0, 1.0), 0.2)
+	spell_tween.tween_callback(spell_sprite.queue_free)
 	
 	tween.tween_callback(func(): 
 		current_state = State.RECOVER

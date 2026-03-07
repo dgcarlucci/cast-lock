@@ -18,7 +18,10 @@ func save_game(stats: WizardStats):
 		"robe_style": stats.robe_style,
 		"hat_style": stats.hat_style,
 		"hair_style": stats.hair_style,
-		"beard_style": stats.beard_style
+		"beard_style": stats.beard_style,
+		"active_spell_id": stats.active_spell_id,
+		"learned_spells": stats.learned_spells,
+		"spell_mastery_xp": stats.spell_mastery_xp
 	}
 	
 	var json_string = JSON.stringify(save_dict)

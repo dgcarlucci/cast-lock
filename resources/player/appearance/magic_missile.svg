@@ -1,0 +1,5 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Purple Magic Missile -->
+  <path d="M10 32C10 32 25 20 40 25C55 30 60 32 60 32C60 32 55 34 40 39C25 44 10 32 10 32Z" fill="#9b59b6" stroke="#8e44ad" stroke-width="2"/>
+  <circle cx="50" cy="32" r="4" fill="white" opacity="0.6"/>
+</svg>

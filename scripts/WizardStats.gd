@@ -19,3 +19,10 @@ class_name WizardStats
 @export var hat_style: int = 0
 @export var hair_style: int = 1
 @export var beard_style: int = 1
+
+@export_group("Spells")
+@export var active_spell_id: String = "magic_missile"
+@export var learned_spells: Dictionary = {
+	"magic_missile": {"rank": 1, "mastery": 0}
+}
+@export var spell_mastery_xp: int = 0

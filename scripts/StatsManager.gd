@@ -34,6 +34,10 @@ func load_or_create_stats():
 		stats.hat_style = save_data.get("hat_style", stats.hat_style)
 		stats.hair_style = save_data.get("hair_style", stats.hair_style)
 		stats.beard_style = save_data.get("beard_style", stats.beard_style)
+		
+		stats.active_spell_id = save_data.get("active_spell_id", stats.active_spell_id)
+		stats.learned_spells = save_data.get("learned_spells", stats.learned_spells)
+		stats.spell_mastery_xp = save_data.get("spell_mastery_xp", stats.spell_mastery_xp)
 
 func save_stats():
 	SaveManager.save_game(stats)

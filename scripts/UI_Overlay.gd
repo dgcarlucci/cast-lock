@@ -16,10 +16,18 @@ signal appearance_changed
 @onready var loot_log_label = $Grimoire/TabContainer/Workshop/RightPage/VBox/LootLogLabel
 @onready var wizard_preview = $Grimoire/TabContainer/Barber/RightPage/PreviewContainer/SubViewport/WizardPreview
 
+# Spell UI
+@onready var spell_title = $Grimoire/TabContainer/Spells/RightPage/VBox/SpellTitle
+@onready var spell_info = $Grimoire/TabContainer/Spells/RightPage/VBox/SpellInfo
+@onready var train_button = $Grimoire/TabContainer/Spells/RightPage/VBox/TrainButton
+@onready var equip_button = $Grimoire/TabContainer/Spells/RightPage/VBox/EquipButton
+
 var loot_log: Array = []
+var selected_spell_id: String = "magic_missile"
 
 func _ready():
 	update_stats()
+	update_spell_ui()
 	grimoire.visible = false
 	grimoire.scale = Vector2(0.5, 0.5)
 	grimoire.modulate.a = 0
@@ -32,6 +40,7 @@ func _on_book_button_pressed():
 
 func _open_grimoire():
 	update_stats()
+	update_spell_ui()
 	wizard_preview.update_appearance(StatsManager.stats)
 	grimoire.visible = true
 	var tween = get_tree().create_tween().set_parallel(true)
@@ -48,6 +57,8 @@ func _on_nav_btn_pressed(index: int):
 	tab_container.current_tab = index
 	if index == 0:
 		update_stats()
+	elif index == 3: # Spells
+		update_spell_ui()
 
 func _on_craft_button_pressed():
 	craft_pressed.emit()
@@ -59,6 +70,7 @@ func _on_save_button_pressed():
 	StatsManager.save_stats()
 	show_floating_text("PROGRESS SAVED", Color.GREEN)
 
+# Barber Shop Logic
 func _on_randomize_button_pressed():
 	var stats = StatsManager.stats
 	stats.robe_color = Color(randf(), randf(), randf())
@@ -80,6 +92,57 @@ func _on_hair_toggle_pressed():
 	appearance_changed.emit()
 	wizard_preview.update_appearance(stats)
 
+# Spell Book Logic
+func _on_spell_select_pressed(spell_id: String):
+	selected_spell_id = spell_id
+	update_spell_ui()
+
+func _on_train_spell_pressed():
+	var stats = StatsManager.stats
+	if not stats.learned_spells.has(selected_spell_id):
+		stats.learned_spells[selected_spell_id] = {"rank": 1, "mastery": 0}
+		
+	var spell_data = stats.learned_spells[selected_spell_id]
+	var cost = SpellManager.get_training_cost(selected_spell_id, spell_data["rank"])
+	
+	if stats.gold >= cost:
+		stats.gold -= cost
+		spell_data["rank"] += 1
+		show_floating_text("RANK UP!", Color.CYAN)
+		update_stats()
+		update_spell_ui()
+		StatsManager.save_stats()
+	else:
+		show_floating_text("NOT ENOUGH GOLD!", Color.RED)
+
+func _on_equip_spell_pressed():
+	StatsManager.stats.active_spell_id = selected_spell_id
+	update_spell_ui()
+	show_floating_text("SPELL EQUIPPED", Color.MEDIUM_PURPLE)
+	StatsManager.save_stats()
+
+func update_spell_ui():
+	var stats = StatsManager.stats
+	var is_learned = stats.learned_spells.has(selected_spell_id)
+	var spell_data = stats.learned_spells.get(selected_spell_id, {"rank": 1, "mastery": 0})
+	
+	spell_title.text = SpellManager.get_spell_name(selected_spell_id, spell_data["rank"])
+	if selected_spell_id == stats.active_spell_id:
+		spell_title.text += " (Equipped)"
+		equip_button.disabled = true
+	else:
+		equip_button.disabled = false
+		
+	var info_text = SpellManager.spells[selected_spell_id]["description"] + "\n\n"
+	info_text += "Rank: %d\n" % spell_data["rank"]
+	# Mastery is placeholder for now
+	info_text += "Mastery: %d / 100" % spell_data["mastery"]
+	spell_info.text = info_text
+	
+	var train_cost = SpellManager.get_training_cost(selected_spell_id, spell_data["rank"])
+	train_button.text = "TRAIN (%dG)" % train_cost
+
+# Global Updates
 func update_stats():
 	var stats = StatsManager.stats
 	if not stats: return
