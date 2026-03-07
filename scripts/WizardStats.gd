@@ -15,8 +15,8 @@ class_name WizardStats
 @export var hat_color: Color = Color("4a1a6b") # Default purple
 @export var eye_color: Color = Color("000000") # Default black
 @export var hair_color: Color = Color("ffffff") # Default white/grey
-@export var robe_style: int = 0
-@export var hat_style: int = 0
+@export var hair_style: int = 1
+@export var beard_style: int = 1
 @export var robe_style: int = 0
 @export var hat_style: int = 0
 @export var main_hand_style: int = 1 # 0: None, 1: Wand, 2: Staff
@@ -29,7 +29,6 @@ class_name WizardStats
 	"body": 1,
 	"accessories": 0
 }
-
 
 @export_group("Spells")
 @export var active_spell_id: String = "magic_missile"
