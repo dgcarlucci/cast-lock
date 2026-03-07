@@ -1,0 +1,12 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Small Barber Pole -->
+  <rect x="45" y="10" width="8" height="30" rx="4" fill="#f0f0f0" stroke="#333" stroke-width="1.5"/>
+  <path d="M45 15L53 21M45 23L53 29M45 31L53 37" stroke="#e74c3c" stroke-width="3"/>
+  <!-- Small Scissors -->
+  <g transform="translate(10, 20) scale(0.8)">
+    <circle cx="10" cy="40" r="6" stroke="#333" stroke-width="2"/>
+    <circle cx="26" cy="40" r="6" stroke="#333" stroke-width="2"/>
+    <path d="M10 34L25 10" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+    <path d="M26 34L11 10" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+  </g>
+</svg>

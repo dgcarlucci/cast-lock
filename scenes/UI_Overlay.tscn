@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/UI_Overlay.gd" id="1_x8b7o"]
 [ext_resource type="Texture2D" path="res://resources/book_icon.svg" id="2_book"]
 [ext_resource type="Texture2D" path="res://resources/grimoire_open_bg.svg" id="3_bg"]
 [ext_resource type="Texture2D" path="res://resources/anvil_icon.svg" id="4_anvil"]
 [ext_resource type="PackedScene" path="res://scenes/Wizard.tscn" id="5_wiz"]
+[ext_resource type="Texture2D" path="res://resources/stats_icon.svg" id="6_stats"]
+[ext_resource type="Texture2D" path="res://resources/barber_tab_icon.svg" id="7_barber"]
+[ext_resource type="Texture2D" path="res://resources/gear_icon.svg" id="8_gear"]
 
 [node name="UI_Overlay" type="Control"]
 layout_mode = 3
@@ -50,10 +53,10 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = -58.0
-offset_right = 58.0
-offset_bottom = -10.0
+offset_left = 5.0
+offset_top = -45.0
+offset_right = 45.0
+offset_bottom = -5.0
 grow_vertical = 0
 texture_normal = ExtResource("2_book")
 ignore_texture_size = true
@@ -86,10 +89,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -150.0
-offset_right = 250.0
-offset_bottom = 150.0
+offset_left = -140.0
+offset_top = -100.0
+offset_right = 140.0
+offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -110,20 +113,22 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 0
 tab_alignment = 1
 
 [node name="Stats" type="HSplitContainer" parent="Grimoire/TabContainer"]
 layout_mode = 2
+theme_override_icons/grabber = ExtResource("6_stats")
 dragger_visibility = 2
+metadata/_tab_icon = ExtResource("6_stats")
 
 [node name="LeftPage" type="MarginContainer" parent="Grimoire/TabContainer/Stats"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
 
 [node name="VBox" type="VBoxContainer" parent="Grimoire/TabContainer/Stats/LeftPage"]
 layout_mode = 2
@@ -131,24 +136,24 @@ layout_mode = 2
 [node name="Title" type="Label" parent="Grimoire/TabContainer/Stats/LeftPage/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.243137, 0.152941, 0.137255, 1)
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 12
 text = "THE GRIMOIRE"
 horizontal_alignment = 1
 
 [node name="StatsLabel" type="Label" parent="Grimoire/TabContainer/Stats/LeftPage/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.345098, 0.270588, 0.254902, 1)
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 9
 text = "Wizard Level: 1
 XP: 0/100"
 
 [node name="RightPage" type="MarginContainer" parent="Grimoire/TabContainer/Stats"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
 
 [node name="VBox" type="VBoxContainer" parent="Grimoire/TabContainer/Stats/RightPage"]
 layout_mode = 2
@@ -156,7 +161,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Grimoire/TabContainer/Stats/RightPage/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.345098, 0.270588, 0.254902, 1)
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 9
 text = "COMBAT SKILLS
 Power: 10
 Haste: 1.0"
@@ -165,14 +170,15 @@ Haste: 1.0"
 visible = false
 layout_mode = 2
 dragger_visibility = 2
+metadata/_tab_icon = ExtResource("4_anvil")
 
 [node name="LeftPage" type="MarginContainer" parent="Grimoire/TabContainer/Workshop"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
 
 [node name="VBox" type="VBoxContainer" parent="Grimoire/TabContainer/Workshop/LeftPage"]
 layout_mode = 2
@@ -180,7 +186,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Grimoire/TabContainer/Workshop/LeftPage/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.243137, 0.152941, 0.137255, 1)
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 10
 text = "THE ANVIL"
 horizontal_alignment = 1
 
@@ -189,23 +195,23 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="AnvilIcon" type="TextureRect" parent="Grimoire/TabContainer/Workshop/LeftPage/VBox/Center"]
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture = ExtResource("4_anvil")
 expand_mode = 1
 
 [node name="CraftButtonInside" type="Button" parent="Grimoire/TabContainer/Workshop/LeftPage/VBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 8
 text = "CRAFT (10G)"
 
 [node name="RightPage" type="MarginContainer" parent="Grimoire/TabContainer/Workshop"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
 
 [node name="VBox" type="VBoxContainer" parent="Grimoire/TabContainer/Workshop/RightPage"]
 layout_mode = 2
@@ -213,7 +219,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Grimoire/TabContainer/Workshop/RightPage/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.243137, 0.152941, 0.137255, 1)
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 9
 text = "RECENT LOOT"
 horizontal_alignment = 1
 
@@ -221,21 +227,22 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.345098, 0.270588, 0.254902, 1)
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 7
 text = "- None"
 
 [node name="Barber" type="HSplitContainer" parent="Grimoire/TabContainer"]
 visible = false
 layout_mode = 2
 dragger_visibility = 2
+metadata/_tab_icon = ExtResource("7_barber")
 
 [node name="LeftPage" type="MarginContainer" parent="Grimoire/TabContainer/Barber"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
 
 [node name="VBox" type="VBoxContainer" parent="Grimoire/TabContainer/Barber/LeftPage"]
 layout_mode = 2
@@ -244,32 +251,32 @@ alignment = 1
 [node name="Label" type="Label" parent="Grimoire/TabContainer/Barber/LeftPage/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.243137, 0.152941, 0.137255, 1)
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 10
 text = "BARBER SHOP"
 horizontal_alignment = 1
 
 [node name="RandomizeButton" type="Button" parent="Grimoire/TabContainer/Barber/LeftPage/VBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 8
 text = "RANDOMIZE COLORS"
 
 [node name="BeardToggle" type="Button" parent="Grimoire/TabContainer/Barber/LeftPage/VBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 8
 text = "TOGGLE BEARD"
 
 [node name="HairToggle" type="Button" parent="Grimoire/TabContainer/Barber/LeftPage/VBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 8
 text = "TOGGLE HAIR"
 
 [node name="RightPage" type="MarginContainer" parent="Grimoire/TabContainer/Barber"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
 
 [node name="PreviewContainer" type="SubViewportContainer" parent="Grimoire/TabContainer/Barber/RightPage"]
 layout_mode = 2
@@ -282,21 +289,21 @@ size = Vector2i(2, 2)
 render_target_update_mode = 0
 
 [node name="WizardPreview" parent="Grimoire/TabContainer/Barber/RightPage/PreviewContainer/SubViewport" instance=ExtResource("5_wiz")]
-position = Vector2(100, 100)
-scale = Vector2(2, 2)
+position = Vector2(60, 60)
 
 [node name="Library" type="HSplitContainer" parent="Grimoire/TabContainer"]
 visible = false
 layout_mode = 2
 dragger_visibility = 2
+metadata/_tab_icon = ExtResource("8_gear")
 
 [node name="LeftPage" type="MarginContainer" parent="Grimoire/TabContainer/Library"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
 
 [node name="VBox" type="VBoxContainer" parent="Grimoire/TabContainer/Library/LeftPage"]
 layout_mode = 2
@@ -304,21 +311,21 @@ alignment = 1
 
 [node name="SaveButton" type="Button" parent="Grimoire/TabContainer/Library/LeftPage/VBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 9
 text = "SAVE PROGRESS"
 
 [node name="RightPage" type="MarginContainer" parent="Grimoire/TabContainer/Library"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
 
 [node name="Label" type="Label" parent="Grimoire/TabContainer/Library/RightPage"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.345098, 0.270588, 0.254902, 1)
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 8
 text = "VERSION 1.0
 Wizards Desk Idle"
 horizontal_alignment = 1
@@ -328,10 +335,10 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -30.0
-offset_top = 10.0
-offset_right = -10.0
-offset_bottom = 30.0
+offset_left = -25.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = 25.0
 grow_horizontal = 0
 theme_override_font_sizes/font_size = 10
 text = "X"
