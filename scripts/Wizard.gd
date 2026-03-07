@@ -54,8 +54,8 @@ func start_idle_animation():
 
 	# Subtle weapon bobbing
 	var weapon_tween = get_tree().create_tween().set_loops()
-	weapon_tween.tween_property(weapon, "position", Vector2(18, -14), 1.5).set_trans(Tween.TRANS_SINE)
-	weapon_tween.tween_property(weapon, "position", Vector2(18, -12), 1.5).set_trans(Tween.TRANS_SINE)
+	weapon_tween.tween_property(weapon, "position", Vector2(12, -2), 1.5).set_trans(Tween.TRANS_SINE)
+	weapon_tween.tween_property(weapon, "position", Vector2(12, 0), 1.5).set_trans(Tween.TRANS_SINE)
 
 
 func play_cast_animation(callback: Callable):
