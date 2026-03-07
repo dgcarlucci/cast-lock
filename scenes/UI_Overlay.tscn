@@ -1,14 +1,14 @@
 [gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://scripts/UI_Overlay.gd" id="1_x8b7o"]
-[ext_resource type="Texture2D" path="res://resources/book_icon.svg" id="2_book"]
-[ext_resource type="Texture2D" path="res://resources/grimoire_open_bg.svg" id="3_bg"]
-[ext_resource type="Texture2D" path="res://resources/anvil_icon.svg" id="4_anvil"]
+[ext_resource type="Texture2D" path="res://resources/ui/icons/book_icon.svg" id="2_book"]
+[ext_resource type="Texture2D" path="res://resources/ui/backgrounds/grimoire_open_bg.svg" id="3_bg"]
+[ext_resource type="Texture2D" path="res://resources/ui/icons/anvil_icon.svg" id="4_anvil"]
 [ext_resource type="PackedScene" path="res://scenes/Wizard.tscn" id="5_wiz"]
-[ext_resource type="Texture2D" path="res://resources/stats_icon.svg" id="6_stats"]
-[ext_resource type="Texture2D" path="res://resources/barber_tab_icon.svg" id="7_barber"]
-[ext_resource type="Texture2D" path="res://resources/gear_icon.svg" id="8_gear"]
-[ext_resource type="Texture2D" path="res://resources/close_icon.svg" id="9_close"]
+[ext_resource type="Texture2D" path="res://resources/ui/icons/stats_icon.svg" id="6_stats"]
+[ext_resource type="Texture2D" path="res://resources/ui/icons/barber_tab_icon.svg" id="7_barber"]
+[ext_resource type="Texture2D" path="res://resources/ui/icons/gear_icon.svg" id="8_gear"]
+[ext_resource type="Texture2D" path="res://resources/ui/icons/close_icon.svg" id="9_close"]
 
 [node name="UI_Overlay" type="Control"]
 layout_mode = 3

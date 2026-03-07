@@ -1,13 +1,13 @@
 [gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/Wizard.gd" id="1_x8b7l"]
-[ext_resource type="Texture2D" path="res://resources/wizard/body.svg" id="2_body"]
-[ext_resource type="Texture2D" path="res://resources/wizard/robe_basic.svg" id="3_robe"]
-[ext_resource type="Texture2D" path="res://resources/wizard/hat_basic.svg" id="4_hat"]
-[ext_resource type="Texture2D" path="res://resources/wizard/eyes_cute.svg" id="5_eyes"]
-[ext_resource type="Texture2D" path="res://resources/wizard/hair_basic.svg" id="6_hair"]
-[ext_resource type="Texture2D" path="res://resources/wizard/beard_basic.svg" id="7_beard"]
-[ext_resource type="Texture2D" path="res://resources/wizard/shadow.svg" id="8_shadow"]
+[ext_resource type="Texture2D" path="res://resources/player/appearance/body.svg" id="2_body"]
+[ext_resource type="Texture2D" path="res://resources/player/appearance/robe_basic.svg" id="3_robe"]
+[ext_resource type="Texture2D" path="res://resources/player/appearance/hat_basic.svg" id="4_hat"]
+[ext_resource type="Texture2D" path="res://resources/player/appearance/eyes_cute.svg" id="5_eyes"]
+[ext_resource type="Texture2D" path="res://resources/player/appearance/hair_basic.svg" id="6_hair"]
+[ext_resource type="Texture2D" path="res://resources/player/appearance/beard_basic.svg" id="7_beard"]
+[ext_resource type="Texture2D" path="res://resources/player/appearance/shadow.svg" id="8_shadow"]
 
 [node name="Wizard" type="Node2D"]
 script = ExtResource("1_x8b7l")

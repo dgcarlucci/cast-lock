@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/Enemy.gd" id="1_enemy"]
-[ext_resource type="Texture2D" path="res://resources/slime_sprite.svg" id="2_slime"]
-[ext_resource type="Texture2D" path="res://resources/wizard/shadow.svg" id="3_shadow"]
+[ext_resource type="Texture2D" path="res://resources/enemies/slime_sprite.svg" id="2_slime"]
+[ext_resource type="Texture2D" path="res://resources/player/appearance/shadow.svg" id="3_shadow"]
 
 [node name="Enemy" type="Node2D"]
 script = ExtResource("1_enemy")

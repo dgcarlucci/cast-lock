@@ -9,9 +9,34 @@ var current_enemy_hp: float = 0.0
 var max_enemy_hp: float = 0.0
 
 var enemy_textures = [
-	preload("res://resources/slime_sprite.svg"),
-	preload("res://resources/bat_sprite.svg"),
-	preload("res://resources/ghost_sprite.svg")
+	preload("res://resources/enemies/slime_sprite.svg"),
+	preload("res://resources/enemies/bat_sprite.svg"),
+	preload("res://resources/enemies/ghost_sprite.svg"),
+	preload("res://resources/enemies/fire_elemental.svg"),
+	preload("res://resources/enemies/ice_elemental.svg"),
+	preload("res://resources/enemies/rock_golem.svg"),
+	preload("res://resources/enemies/skeleton.svg"),
+	preload("res://resources/enemies/zombie.svg"),
+	preload("res://resources/enemies/vampire_bat.svg"),
+	preload("res://resources/enemies/forest_spider.svg"),
+	preload("res://resources/enemies/angry_mushroom.svg"),
+	preload("res://resources/enemies/treant_sapling.svg"),
+	preload("res://resources/enemies/imp.svg"),
+	preload("res://resources/enemies/hellhound.svg"),
+	preload("res://resources/enemies/mimic.svg"),
+	preload("res://resources/enemies/beholder_eye.svg"),
+	preload("res://resources/enemies/wraith.svg"),
+	preload("res://resources/enemies/orc_grunt.svg"),
+	preload("res://resources/enemies/goblin_thief.svg"),
+	preload("res://resources/enemies/harpy.svg"),
+	preload("res://resources/enemies/medusa_head.svg"),
+	preload("res://resources/enemies/dragon_wyrm.svg"),
+	preload("res://resources/enemies/manticore_cub.svg"),
+	preload("res://resources/enemies/crab_monstrosity.svg"),
+	preload("res://resources/enemies/cactus_thug.svg"),
+	preload("res://resources/enemies/sand_worm.svg"),
+	preload("res://resources/enemies/yeti_scout.svg"),
+	preload("res://resources/enemies/dark_knight.svg")
 ]
 
 func _ready():

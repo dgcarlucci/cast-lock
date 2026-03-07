@@ -1,6 +1,6 @@
 extends Node
 
-const WIZARD_STATS_PATH = "res://resources/WizardStats.tres"
+const WIZARD_STATS_PATH = "res://resources/player/data/WizardStats.tres"
 var stats: WizardStats
 var enemy_data: EnemyData = EnemyData.new()
 
