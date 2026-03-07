@@ -38,6 +38,7 @@ func load_or_create_stats():
 		stats.active_spell_id = save_data.get("active_spell_id", stats.active_spell_id)
 		stats.learned_spells = save_data.get("learned_spells", stats.learned_spells)
 		stats.spell_mastery_xp = save_data.get("spell_mastery_xp", stats.spell_mastery_xp)
+		stats.unlocked_tiers = save_data.get("unlocked_tiers", stats.unlocked_tiers)
 
 func save_stats():
 	SaveManager.save_game(stats)

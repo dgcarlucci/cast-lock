@@ -257,6 +257,14 @@ theme_override_font_sizes/font_size = 10
 text = "BARBER SHOP"
 horizontal_alignment = 1
 
+[node name="Scroll" type="ScrollContainer" parent="Grimoire/TabContainer/Barber/LeftPage/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="UnlockedItems" type="VBoxContainer" parent="Grimoire/TabContainer/Barber/LeftPage/VBox/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="RandomizeButton" type="Button" parent="Grimoire/TabContainer/Barber/LeftPage/VBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8

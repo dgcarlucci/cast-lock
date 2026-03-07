@@ -29,6 +29,9 @@ signal appearance_changed
 @onready var item_info = $Grimoire/TabContainer/Workshop/RightPage/VBox/ItemInfo
 @onready var research_button = $Grimoire/TabContainer/Workshop/RightPage/VBox/ResearchButton
 
+# Barber UI
+@onready var unlocked_items_container = $Grimoire/TabContainer/Barber/LeftPage/VBox/Scroll/UnlockedItems
+
 var loot_log: Array = []
 var selected_spell_id: String = "magic_missile"
 var selected_equip_cat: String = "main_hand"
@@ -67,7 +70,33 @@ func _on_nav_btn_pressed(index: int):
 	tab_container.current_tab = index
 	if index == 0: update_stats()
 	elif index == 1: update_workshop_ui()
+	elif index == 2: update_barber_ui()
 	elif index == 3: update_spell_ui()
+
+func update_barber_ui():
+	for child in unlocked_items_container.get_children(): child.queue_free()
+	
+	var stats = StatsManager.stats
+	
+	# Headers and buttons for each category
+	for cat_id in EquipmentManager.categories.keys():
+		var label = Label.new()
+		label.text = EquipmentManager.categories[cat_id]["name"]
+		label.add_theme_font_size_override("font_size", 8)
+		label.add_theme_color_override("font_color", Color.SADDLE_BROWN)
+		unlocked_items_container.add_child(label)
+		
+		var unlocked_tier = stats.unlocked_tiers.get(cat_id, 1)
+		var items = EquipmentManager.get_category_items(cat_id)
+		
+		for i in range(unlocked_tier):
+			if i < items.size():
+				var item = items[i]
+				var btn = Button.new()
+				btn.add_theme_font_size_override("font_size", 7)
+				btn.text = item.get("name")
+				btn.pressed.connect(_on_equip_item_pressed.bind(cat_id, item.get("tier")))
+				unlocked_items_container.add_child(btn)
 
 func _on_close_button_pressed():
 	_close_grimoire()
@@ -98,6 +127,17 @@ func _on_hair_toggle_pressed():
 	appearance_changed.emit()
 	wizard_preview.update_appearance(stats)
 
+# Equipment Customization (Barber Shop Extension)
+func _on_equip_item_pressed(category: String, tier: int):
+	var stats = StatsManager.stats
+	if category == "main_hand": stats.main_hand_style = tier
+	elif category == "head": stats.hat_style = tier
+	elif category == "body": stats.robe_style = tier
+	
+	appearance_changed.emit()
+	wizard_preview.update_appearance(stats)
+	update_stats() # Refresh total stats if visual tier affects it (though we give boosts on research)
+
 # Workshop Logic
 func _on_equip_cat_select(cat_id: String):
 	selected_equip_cat = cat_id
@@ -105,21 +145,24 @@ func _on_equip_cat_select(cat_id: String):
 
 func _on_research_button_pressed():
 	var stats = StatsManager.stats
-	var current_tier = 0
-	if selected_equip_cat == "main_hand": current_tier = stats.main_hand_style
-	elif selected_equip_cat == "head": current_tier = stats.hat_style
+	var current_tier = stats.unlocked_tiers.get(selected_equip_cat, 1)
 	
-	var item = EquipmentManager.get_item_data(selected_equip_cat, current_tier)
+	var item = EquipmentManager.get_item_data(selected_equip_cat, current_tier) # Item at current_tier index is tier+1
 	if not item: return
 	
 	if stats.gold >= item.get("cost", 0):
 		stats.gold -= item.get("cost", 0)
-		if selected_equip_cat == "main_hand": 
-			stats.main_hand_style = item.get("tier", 0)
-			stats.attack_power += item.get("power_boost", 0)
-		elif selected_equip_cat == "head": 
-			stats.hat_style = item.get("tier", 0)
-			stats.haste += item.get("haste_boost", 0)
+		# Unlock the tier
+		stats.unlocked_tiers[selected_equip_cat] = item.get("tier", 1)
+		
+		# Auto-equip new research?
+		if selected_equip_cat == "main_hand": stats.main_hand_style = item.get("tier", 1)
+		elif selected_equip_cat == "head": stats.hat_style = item.get("tier", 1)
+		elif selected_equip_cat == "body": stats.robe_style = item.get("tier", 1)
+		
+		# Permanent Stat Boost
+		if item.has("power_boost"): stats.attack_power += item.get("power_boost", 0)
+		if item.has("haste_boost"): stats.haste += item.get("haste_boost", 0)
 			
 		show_floating_text("RESEARCH COMPLETE!", Color.GOLD)
 		update_stats()
@@ -136,29 +179,29 @@ func update_workshop_ui():
 		var btn = Button.new()
 		btn.add_theme_font_size_override("font_size", 8)
 		var cat_data = EquipmentManager.categories.get(cat_id)
-		btn.text = cat_data.get("name", cat_id) if cat_data else cat_id
+		btn.text = "Research " + cat_data.get("name", cat_id) if cat_data else cat_id
 		btn.pressed.connect(_on_equip_cat_select.bind(cat_id))
 		equip_list_container.add_child(btn)
 		
 	var stats = StatsManager.stats
-	var current_tier = 0
-	if selected_equip_cat == "main_hand": current_tier = stats.main_hand_style
-	elif selected_equip_cat == "head": current_tier = stats.hat_style
+	var current_unlocked = stats.unlocked_tiers.get(selected_equip_cat, 1)
 	
-	var item = EquipmentManager.get_item_data(selected_equip_cat, current_tier)
+	# Next available is at index = current_unlocked (since 0-based index and tier 1 is index 0)
+	var item = EquipmentManager.get_item_data(selected_equip_cat, current_unlocked)
 	if item:
-		item_title.text = item.get("name", "Unknown Item")
+		item_title.text = "Blueprint: " + item.get("name", "Unknown Item")
 		item_preview.texture = load(item.get("texture", ""))
 		item_preview.visible = true
-		var info = "Category: %s\n" % selected_equip_cat
-		if item.has("power_boost"): info += "Power: +%d\n" % item.get("power_boost")
-		if item.has("haste_boost"): info += "Haste: +%.2f\n" % item.get("haste_boost")
+		var info = "Unlocks tier %d\n" % item.get("tier", 1)
+		if item.has("power_boost"): info += "Stat: +%d Atk\n" % item.get("power_boost")
+		if item.has("haste_boost"): info += "Stat: +%.2f Spd\n" % item.get("haste_boost")
 		item_info.text = info
 		research_button.text = "RESEARCH (%dG)" % item.get("cost", 0)
 		research_button.disabled = false
 	else:
-		item_title.text = "Max Tier Reached"
-		item_info.text = "No further research available."
+		item_title.text = "Maximum Research"
+		item_info.text = "You have unlocked all currently known blueprints for this category."
+		item_preview.visible = false
 		research_button.text = "MAXED"
 		research_button.disabled = true
 
