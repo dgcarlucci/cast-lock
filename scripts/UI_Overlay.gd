@@ -11,43 +11,48 @@ signal appearance_changed
 
 @onready var grimoire = $Grimoire
 @onready var tab_container = $Grimoire/Margin/TabContainer
-@onready var stats_label = $Grimoire/Margin/TabContainer/Grimoire/StatsLabel
-@onready var loot_log_label = $Grimoire/Margin/TabContainer/Workshop/LootLogLabel
+@onready var stats_label = $Grimoire/TabContainer/Stats/LeftPage/VBox/StatsLabel
+@onready var combat_label = $Grimoire/TabContainer/Stats/RightPage/VBox/Label
+@onready var loot_log_label = $Grimoire/TabContainer/Workshop/RightPage/VBox/LootLogLabel
+@onready var wizard_preview = $Grimoire/TabContainer/Barber/RightPage/PreviewContainer/SubViewport/WizardPreview
 
 var loot_log: Array = []
 
 func _ready():
 	update_stats()
 	grimoire.visible = false
+	grimoire.scale = Vector2(0.5, 0.5)
+	grimoire.modulate.a = 0
+
+func _on_book_button_pressed():
+	if grimoire.visible:
+		_close_grimoire()
+	else:
+		_open_grimoire()
+
+func _open_grimoire():
+	update_stats()
+	wizard_preview.update_appearance(StatsManager.stats)
+	grimoire.visible = true
+	var tween = get_tree().create_tween().set_parallel(true)
+	tween.tween_property(grimoire, "scale", Vector2(1.0, 1.0), 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_property(grimoire, "modulate:a", 1.0, 0.2)
+
+func _close_grimoire():
+	var tween = get_tree().create_tween().set_parallel(true)
+	tween.tween_property(grimoire, "scale", Vector2(0.8, 0.8), 0.2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	tween.tween_property(grimoire, "modulate:a", 0.0, 0.2)
+	tween.chain().tween_callback(func(): grimoire.visible = false)
 
 func _on_craft_button_pressed():
-	# If grimoire is closed, open it to Workshop. 
-	# If already open, just emit the signal (it's called from the inside button too)
-	if not grimoire.visible:
-		grimoire.visible = true
-		tab_container.current_tab = 1 # Workshop
-	
 	craft_pressed.emit()
 
-func _on_customize_button_pressed():
-	grimoire.visible = true
-	tab_container.current_tab = 2 # Barber
-
-func _on_stats_button_pressed():
-	grimoire.visible = true
-	tab_container.current_tab = 0 # Grimoire (Stats)
-	update_stats()
-
-func _on_settings_button_pressed():
-	grimoire.visible = true
-	tab_container.current_tab = 3 # Library (Settings)
-
 func _on_close_button_pressed():
-	grimoire.visible = false
+	_close_grimoire()
 
 func _on_save_button_pressed():
 	StatsManager.save_stats()
-	show_floating_text("GAME SAVED", Color.GREEN)
+	show_floating_text("PROGRESS SAVED", Color.GREEN)
 
 func _on_randomize_button_pressed():
 	var stats = StatsManager.stats
@@ -56,16 +61,19 @@ func _on_randomize_button_pressed():
 	stats.skin_color = Color(0.8 + randf() * 0.2, 0.6 + randf() * 0.2, 0.5 + randf() * 0.2)
 	stats.hair_color = Color(randf(), randf(), randf())
 	appearance_changed.emit()
+	wizard_preview.update_appearance(stats)
 
 func _on_beard_toggle_pressed():
 	var stats = StatsManager.stats
 	stats.beard_style = 1 if stats.beard_style == 0 else 0
 	appearance_changed.emit()
+	wizard_preview.update_appearance(stats)
 
 func _on_hair_toggle_pressed():
 	var stats = StatsManager.stats
 	stats.hair_style = 1 if stats.hair_style == 0 else 0
 	appearance_changed.emit()
+	wizard_preview.update_appearance(stats)
 
 func update_stats():
 	var stats = StatsManager.stats
@@ -77,20 +85,20 @@ func update_stats():
 	xp_bar.max_value = StatsManager.get_xp_needed()
 	xp_bar.value = stats.xp
 	
-	stats_label.text = "--- WIZARD PROGRESS ---\n\n"
-	stats_label.text += "Level: %d\n" % stats.level
-	stats_label.text += "XP: %d / %d\n" % [stats.xp, StatsManager.get_xp_needed()]
-	stats_label.text += "Attack Power: %.1f\n" % stats.attack_power
-	stats_label.text += "Crit Chance: %.1f%%\n" % (stats.crit_chance * 100.0)
-	stats_label.text += "Haste: %.2f\n" % stats.haste
-	stats_label.text += "\nTotal Gold: %d" % int(stats.gold)
+	stats_label.text = "Wizard Level: %d\n" % stats.level
+	stats_label.text += "Experience: %d / %d\n" % [stats.xp, StatsManager.get_xp_needed()]
+	stats_label.text += "Total Gold: %d" % int(stats.gold)
+	
+	combat_label.text = "COMBAT SKILLS\n\n"
+	combat_label.text += "Attack Power: %.1f\n" % stats.attack_power
+	combat_label.text += "Crit Chance: %.1f%%\n" % (stats.crit_chance * 100.0)
+	combat_label.text += "Attack Speed: %.2f" % stats.haste
 
 func update_enemy_health(current, max_hp):
 	enemy_health_bar.max_value = max_hp
 	enemy_health_bar.value = current
 
 func add_loot_entry(entry_text):
-	# Don't auto-open grimoire on loot, just update it
 	loot_log.push_front(entry_text)
 	if loot_log.size() > 10:
 		loot_log.pop_back()
