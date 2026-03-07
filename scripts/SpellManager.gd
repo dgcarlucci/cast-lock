@@ -42,29 +42,40 @@ func is_spell_unlocked(id: String, learned_dict: Dictionary) -> bool:
 	if id == "magic_missile": return true
 	if learned_dict.has(id): return true
 	
-	var req = spells[id]["required_spell"]
-	var rank_req = spells[id]["required_rank"]
+	var spell_cfg = spells.get(id)
+	if not spell_cfg: return false
+	
+	var req = spell_cfg.get("required_spell", "")
+	var rank_req = spell_cfg.get("required_rank", 0)
 	
 	if req != "" and learned_dict.has(req):
-		return learned_dict[req]["rank"] >= rank_req
+		var req_data = learned_dict.get(req)
+		if req_data and req_data is Dictionary:
+			return req_data.get("rank", 0) >= rank_req
 	return false
 
 func get_spell_name(id: String, rank: int) -> String:
-	return spells[id]["name"]
+	var cfg = spells.get(id)
+	return cfg.get("name", "Unknown") if cfg else "Unknown"
 
 func get_training_cost(id: String, current_rank: int) -> int:
-	return spells[id]["cost_per_rank"] * current_rank
+	var cfg = spells.get(id)
+	if cfg:
+		return cfg.get("cost_per_rank", 10) * current_rank
+	return 0
 
 func get_spell_visual_path(id: String) -> String:
-	return spells[id]["icon"]
+	var cfg = spells.get(id)
+	return cfg.get("icon", "") if cfg else ""
 
 func gain_mastery(id: String, amount: int, stats: WizardStats):
+	if not stats or not stats.learned_spells: return
 	if not stats.learned_spells.has(id): return
 	
-	var data = stats.learned_spells[id]
-	data["mastery"] += amount
-	
-	if data["mastery"] >= 100:
-		data["mastery"] = 0
-		data["rank"] += 1
-		# Trigger rank up notification?
+	var data = stats.learned_spells.get(id)
+	if data and data is Dictionary:
+		data["mastery"] = data.get("mastery", 0) + amount
+		
+		if data["mastery"] >= 100:
+			data["mastery"] = 0
+			data["rank"] = data.get("rank", 1) + 1

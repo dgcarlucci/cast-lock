@@ -111,14 +111,14 @@ func _on_research_button_pressed():
 	var item = EquipmentManager.get_item_data(selected_equip_cat, current_tier)
 	if not item: return
 	
-	if stats.gold >= item["cost"]:
-		stats.gold -= item["cost"]
+	if stats.gold >= item.get("cost", 0):
+		stats.gold -= item.get("cost", 0)
 		if selected_equip_cat == "main_hand": 
-			stats.main_hand_style = item["tier"]
-			if item.has("power_boost"): stats.attack_power += item["power_boost"]
+			stats.main_hand_style = item.get("tier", 0)
+			stats.attack_power += item.get("power_boost", 0)
 		elif selected_equip_cat == "head": 
-			stats.hat_style = item["tier"]
-			if item.has("haste_boost"): stats.haste += item["haste_boost"]
+			stats.hat_style = item.get("tier", 0)
+			stats.haste += item.get("haste_boost", 0)
 			
 		show_floating_text("RESEARCH COMPLETE!", Color.GOLD)
 		update_stats()
@@ -134,7 +134,8 @@ func update_workshop_ui():
 	for cat_id in EquipmentManager.categories.keys():
 		var btn = Button.new()
 		btn.add_theme_font_size_override("font_size", 8)
-		btn.text = EquipmentManager.categories[cat_id]["name"]
+		var cat_data = EquipmentManager.categories.get(cat_id)
+		btn.text = cat_data.get("name", cat_id) if cat_data else cat_id
 		btn.pressed.connect(_on_equip_cat_select.bind(cat_id))
 		equip_list_container.add_child(btn)
 		
@@ -145,12 +146,12 @@ func update_workshop_ui():
 	
 	var item = EquipmentManager.get_item_data(selected_equip_cat, current_tier)
 	if item:
-		item_title.text = item["name"]
-		var info = "Tied to Category: %s\n" % selected_equip_cat
-		if item.has("power_boost"): info += "Power: +%d\n" % item["power_boost"]
-		if item.has("haste_boost"): info += "Haste: +%.2f\n" % item["haste_boost"]
+		item_title.text = item.get("name", "Unknown Item")
+		var info = "Category: %s\n" % selected_equip_cat
+		if item.has("power_boost"): info += "Power: +%d\n" % item.get("power_boost")
+		if item.has("haste_boost"): info += "Haste: +%.2f\n" % item.get("haste_boost")
 		item_info.text = info
-		research_button.text = "RESEARCH (%dG)" % item["cost"]
+		research_button.text = "RESEARCH (%dG)" % item.get("cost", 0)
 		research_button.disabled = false
 	else:
 		item_title.text = "Max Tier Reached"
@@ -168,12 +169,12 @@ func _on_train_spell_pressed():
 	if not stats.learned_spells.has(selected_spell_id):
 		stats.learned_spells[selected_spell_id] = {"rank": 1, "mastery": 0}
 		
-	var s_data = stats.learned_spells[selected_spell_id]
-	var cost = SpellManager.get_training_cost(selected_spell_id, s_data["rank"])
+	var s_data = stats.learned_spells.get(selected_spell_id)
+	var cost = SpellManager.get_training_cost(selected_spell_id, s_data.get("rank", 1))
 	
 	if stats.gold >= cost:
 		stats.gold -= cost
-		s_data["rank"] += 1
+		s_data["rank"] = s_data.get("rank", 1) + 1
 		show_floating_text("RANK UP!", Color.CYAN)
 		update_stats()
 		update_spell_ui()
@@ -194,7 +195,8 @@ func update_spell_ui():
 		var btn = Button.new()
 		btn.add_theme_font_size_override("font_size", 8)
 		if SpellManager.is_spell_unlocked(s_id, stats.learned_spells):
-			btn.text = SpellManager.get_spell_name(s_id, stats.learned_spells.get(s_id, {"rank":1})["rank"])
+			var s_data = stats.learned_spells.get(s_id, {"rank":1})
+			btn.text = SpellManager.get_spell_name(s_id, s_data.get("rank", 1))
 			btn.pressed.connect(_on_spell_select_pressed.bind(s_id))
 		else:
 			btn.text = "??? (LOCKED)"
@@ -202,11 +204,15 @@ func update_spell_ui():
 		spell_list_container.add_child(btn)
 	
 	var s_data = stats.learned_spells.get(selected_spell_id, {"rank": 1, "mastery": 0})
-	spell_title.text = SpellManager.get_spell_name(selected_spell_id, s_data["rank"])
+	spell_title.text = SpellManager.get_spell_name(selected_spell_id, s_data.get("rank", 1))
 	equip_button.visible = stats.learned_spells.has(selected_spell_id)
 	equip_button.disabled = (selected_spell_id == stats.active_spell_id)
-	spell_info.text = SpellManager.spells[selected_spell_id]["description"] + "\n\nRank: %d\nMastery: %d / 100" % [s_data["rank"], s_data["mastery"]]
-	train_button.text = "TRAIN (%dG)" % SpellManager.get_training_cost(selected_spell_id, s_data["rank"])
+	
+	var spell_cfg = SpellManager.spells.get(selected_spell_id, {})
+	var desc = spell_cfg.get("description", "No description available.")
+	spell_info.text = desc + "\n\nRank: %d\nMastery: %d / 100" % [s_data.get("rank", 1), s_data.get("mastery", 0)]
+	
+	train_button.text = "TRAIN (%dG)" % SpellManager.get_training_cost(selected_spell_id, s_data.get("rank", 1))
 	train_button.visible = SpellManager.is_spell_unlocked(selected_spell_id, stats.learned_spells)
 
 # Stats Logic
@@ -227,7 +233,6 @@ func update_enemy_health(current, max_hp):
 func add_loot_entry(entry_text):
 	loot_log.push_front(entry_text)
 	if loot_log.size() > 10: loot_log.pop_back()
-	# Optional: show in workshop if needed
 
 func show_floating_text(text, color):
 	var label = Label.new()

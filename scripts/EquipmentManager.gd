@@ -19,13 +19,15 @@ var categories = {
 }
 
 func get_item_data(category: String, index: int):
-	if categories.has(category) and index < categories[category]["items"].size():
-		return categories[category]["items"][index]
+	var cat = categories.get(category)
+	if cat:
+		var items = cat.get("items", [])
+		if index >= 0 and index < items.size():
+			return items[index]
 	return null
 
 func get_next_research_cost(category: String, current_tier: int) -> int:
-	var next_idx = current_tier
-	var data = get_item_data(category, next_idx)
+	var data = get_item_data(category, current_tier)
 	if data:
-		return data["cost"]
+		return data.get("cost", -1)
 	return -1
