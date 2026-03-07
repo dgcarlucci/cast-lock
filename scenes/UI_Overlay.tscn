@@ -471,57 +471,57 @@ layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
-offset_top = -35.0
+offset_top = -45.0
 offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_constants/separation = 12
+theme_override_constants/separation = 10
 alignment = 1
 
 [node name="StatsBtn" type="TextureButton" parent="Grimoire/Footer"]
-custom_minimum_size = Vector2(22, 22)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture_normal = ExtResource("6_stats")
 ignore_texture_size = true
 stretch_mode = 5
 
 [node name="WorkshopBtn" type="TextureButton" parent="Grimoire/Footer"]
-custom_minimum_size = Vector2(22, 22)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture_normal = ExtResource("4_anvil")
 ignore_texture_size = true
 stretch_mode = 5
 
 [node name="ArmoryBtn" type="TextureButton" parent="Grimoire/Footer"]
-custom_minimum_size = Vector2(22, 22)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture_normal = ExtResource("11_armor")
 ignore_texture_size = true
 stretch_mode = 5
 
 [node name="BarberBtn" type="TextureButton" parent="Grimoire/Footer"]
-custom_minimum_size = Vector2(22, 22)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture_normal = ExtResource("7_barber")
 ignore_texture_size = true
 stretch_mode = 5
 
 [node name="SpellBtn" type="TextureButton" parent="Grimoire/Footer"]
-custom_minimum_size = Vector2(22, 22)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture_normal = ExtResource("10_spell")
 ignore_texture_size = true
 stretch_mode = 5
 
 [node name="LibraryBtn" type="TextureButton" parent="Grimoire/Footer"]
-custom_minimum_size = Vector2(22, 22)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture_normal = ExtResource("8_gear")
 ignore_texture_size = true
 stretch_mode = 5
 
 [node name="CloseBtn" type="TextureButton" parent="Grimoire/Footer"]
-custom_minimum_size = Vector2(22, 22)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture_normal = ExtResource("9_close")
 ignore_texture_size = true
