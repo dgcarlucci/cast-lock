@@ -438,11 +438,19 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 9
 text = "SAVE PROGRESS"
 
-[node name="TypingModeCheck" type="CheckBox" parent="Grimoire/TabContainer/Library/LeftPage/VBox"]
+[node name="ModeHBox" type="HBoxContainer" parent="Grimoire/TabContainer/Library/LeftPage/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="ModeLabel" type="Label" parent="Grimoire/TabContainer/Library/LeftPage/VBox/ModeHBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.345098, 0.270588, 0.254902, 1)
 theme_override_font_sizes/font_size = 8
-text = "TYPING COMPANION MODE"
+text = "MODE: AUTO-ATTACK"
+
+[node name="AutoCastToggle" type="CheckButton" parent="Grimoire/TabContainer/Library/LeftPage/VBox/ModeHBox"]
+layout_mode = 2
+flat = true
 
 [node name="ResetButton" type="Button" parent="Grimoire/TabContainer/Library/LeftPage/VBox"]
 layout_mode = 2
@@ -544,7 +552,7 @@ cancel_button_text = "NO"
 [connection signal="pressed" from="Grimoire/TabContainer/Spells/RightPage/VBox/TrainButton" to="." method="_on_train_spell_pressed"]
 [connection signal="pressed" from="Grimoire/TabContainer/Spells/RightPage/VBox/EquipButton" to="." method="_on_equip_spell_pressed"]
 [connection signal="pressed" from="Grimoire/TabContainer/Library/LeftPage/VBox/SaveButton" to="." method="_on_save_button_pressed"]
-[connection signal="toggled" from="Grimoire/TabContainer/Library/LeftPage/VBox/TypingModeCheck" to="." method="_on_typing_mode_toggled"]
+[connection signal="toggled" from="Grimoire/TabContainer/Library/LeftPage/VBox/ModeHBox/AutoCastToggle" to="." method="_on_typing_mode_toggled"]
 [connection signal="pressed" from="Grimoire/TabContainer/Library/LeftPage/VBox/ResetButton" to="." method="_on_reset_button_pressed"]
 [connection signal="pressed" from="Grimoire/Footer/StatsBtn" to="." method="_on_nav_btn_pressed" binds= [0]]
 [connection signal="pressed" from="Grimoire/Footer/WorkshopBtn" to="." method="_on_nav_btn_pressed" binds= [1]]
