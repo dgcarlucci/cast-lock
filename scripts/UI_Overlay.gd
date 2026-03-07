@@ -25,6 +25,7 @@ signal appearance_changed
 # Workshop UI
 @onready var equip_list_container = $Grimoire/TabContainer/Workshop/LeftPage/VBox/EquipmentList
 @onready var item_title = $Grimoire/TabContainer/Workshop/RightPage/VBox/ItemTitle
+@onready var item_preview = $Grimoire/TabContainer/Workshop/RightPage/VBox/Center/ItemPreview
 @onready var item_info = $Grimoire/TabContainer/Workshop/RightPage/VBox/ItemInfo
 @onready var research_button = $Grimoire/TabContainer/Workshop/RightPage/VBox/ResearchButton
 
@@ -147,6 +148,8 @@ func update_workshop_ui():
 	var item = EquipmentManager.get_item_data(selected_equip_cat, current_tier)
 	if item:
 		item_title.text = item.get("name", "Unknown Item")
+		item_preview.texture = load(item.get("texture", ""))
+		item_preview.visible = true
 		var info = "Category: %s\n" % selected_equip_cat
 		if item.has("power_boost"): info += "Power: +%d\n" % item.get("power_boost")
 		if item.has("haste_boost"): info += "Haste: +%.2f\n" % item.get("haste_boost")

@@ -212,6 +212,15 @@ theme_override_font_sizes/font_size = 10
 text = "Item Name"
 horizontal_alignment = 1
 
+[node name="Center" type="CenterContainer" parent="Grimoire/TabContainer/Workshop/RightPage/VBox"]
+layout_mode = 2
+
+[node name="ItemPreview" type="TextureRect" parent="Grimoire/TabContainer/Workshop/RightPage/VBox/Center"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
 [node name="ItemInfo" type="Label" parent="Grimoire/TabContainer/Workshop/RightPage/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.345098, 0.270588, 0.254902, 1)
