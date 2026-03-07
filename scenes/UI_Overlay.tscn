@@ -463,7 +463,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.345098, 0.270588, 0.254902, 1)
 theme_override_font_sizes/font_size = 8
 text = "VERSION 1.0
-PewPewPew"
+Cast-Lock"
 horizontal_alignment = 1
 
 [node name="Footer" type="HBoxContainer" parent="Grimoire"]
