@@ -1,6 +1,5 @@
 extends Control
 
-signal craft_pressed
 signal appearance_changed
 
 @onready var gold_label = $TopBar/GoldLabel
