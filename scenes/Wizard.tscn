@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://scripts/Wizard.gd" id="1_x8b7l"]
 [ext_resource type="Texture2D" path="res://resources/player/appearance/body.svg" id="2_body"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" path="res://resources/player/appearance/hair_basic.svg" id="6_hair"]
 [ext_resource type="Texture2D" path="res://resources/player/appearance/beard_basic.svg" id="7_beard"]
 [ext_resource type="Texture2D" path="res://resources/player/appearance/shadow.svg" id="8_shadow"]
+[ext_resource type="Texture2D" path="res://resources/player/appearance/wand_basic.svg" id="9_wand"]
 
 [node name="Wizard" type="Node2D"]
 script = ExtResource("1_x8b7l")
@@ -26,6 +27,11 @@ offset = Vector2(-32, -64)
 
 [node name="Robe" type="Sprite2D" parent="Layers"]
 texture = ExtResource("3_robe")
+centered = false
+offset = Vector2(-32, -64)
+
+[node name="Weapon" type="Sprite2D" parent="Layers"]
+texture = ExtResource("9_wand")
 centered = false
 offset = Vector2(-32, -64)
 

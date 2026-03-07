@@ -19,6 +19,8 @@ class_name WizardStats
 @export var hat_style: int = 0
 @export var hair_style: int = 1
 @export var beard_style: int = 1
+@export var main_hand_style: int = 0 # 0: None, 1: Wand, 2: Staff
+@export var off_hand_style: int = 0
 
 @export_group("Spells")
 @export var active_spell_id: String = "magic_missile"

@@ -9,6 +9,7 @@ var current_state: State = State.IDLE
 @onready var eyes = $Layers/Eyes
 @onready var hair = $Layers/Hair
 @onready var beard = $Layers/Beard
+@onready var weapon = $Layers/Weapon
 @onready var layers = $Layers
 @onready var shadow = $Shadow
 
@@ -24,25 +25,29 @@ func update_appearance(stats: WizardStats):
 	hair.modulate = stats.hair_color
 	beard.modulate = stats.hair_color
 	
-	# Eyes are usually black/white based on the SVG, 
-	# but we can tint the eye color if needed.
-	# If eye_color is default black, modulation won't show on white highlights.
-	# We use a special modulation for custom eye colors if they aren't black.
 	if stats.eye_color != Color.BLACK:
 		eyes.modulate = stats.eye_color
 	else:
-		eyes.modulate = Color.WHITE # Reset to SVG colors
+		eyes.modulate = Color.WHITE
 	
 	hair.visible = stats.hair_style > 0
 	beard.visible = stats.beard_style > 0
+	
+	# Weapon visibility and texture
+	if stats.main_hand_style == 0:
+		weapon.visible = false
+	else:
+		weapon.visible = true
+		if stats.main_hand_style == 1:
+			weapon.texture = load("res://resources/player/appearance/wand_basic.svg")
+		elif stats.main_hand_style == 2:
+			weapon.texture = load("res://resources/player/appearance/staff_basic.svg")
 
 func start_idle_animation():
 	var tween = get_tree().create_tween().set_loops()
-	# Slow breathing (squash/stretch)
 	tween.tween_property(layers, "scale", Vector2(1.02, 0.98), 1.5).set_trans(Tween.TRANS_SINE)
 	tween.tween_property(layers, "scale", Vector2(1.0, 1.0), 1.5).set_trans(Tween.TRANS_SINE)
 	
-	# Subtle shadow scale
 	var shadow_tween = get_tree().create_tween().set_loops()
 	shadow_tween.tween_property(shadow, "scale", Vector2(1.1, 1.1), 1.5).set_trans(Tween.TRANS_SINE)
 	shadow_tween.tween_property(shadow, "scale", Vector2(1.0, 1.0), 1.5).set_trans(Tween.TRANS_SINE)
@@ -59,12 +64,10 @@ func play_cast_animation(callback: Callable):
 	elif spell_id == "fireball":
 		_animate_fireball(callback)
 	else:
-		# Fallback
 		_animate_generic_spell(callback)
 
 func _animate_magic_missile(callback: Callable):
 	var tween = get_tree().create_tween()
-	# Multi-shot feel
 	for i in range(3):
 		tween.tween_property(layers, "position", Vector2(5, 0), 0.05)
 		tween.tween_callback(func(): _spawn_projectile(Vector2(20, -30), 0.15))
@@ -80,12 +83,11 @@ func _animate_magic_missile(callback: Callable):
 
 func _animate_fireball(callback: Callable):
 	var tween = get_tree().create_tween()
-	# Heavy charge up
 	tween.tween_property(layers, "scale", Vector2(1.3, 0.7), 0.3)
-	tween.parallel().tween_property(layers, "modulate", Color(2, 1, 1), 0.3) # Red glow
+	tween.parallel().tween_property(layers, "modulate", Color(2, 1, 1), 0.3)
 	
 	tween.tween_callback(func(): 
-		_spawn_projectile(Vector2(20, -40), 0.4, 2.0, true) # Large arcing fireball
+		_spawn_projectile(Vector2(20, -40), 0.4, 2.0, true)
 	)
 	
 	tween.tween_property(layers, "scale", Vector2(0.7, 1.3), 0.1)
