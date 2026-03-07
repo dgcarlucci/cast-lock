@@ -1,0 +1,18 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Barber Pole -->
+  <rect x="42" y="10" width="12" height="44" rx="6" fill="#f0f0f0" stroke="#333" stroke-width="2"/>
+  <path d="M42 18L54 26M42 30L54 38M42 42L54 50" stroke="#e74c3c" stroke-width="4"/>
+  <path d="M42 22L54 30M42 34L54 42M42 46L54 54" stroke="#3498db" stroke-width="4" opacity="0.5"/>
+  
+  <!-- Scissors -->
+  <g transform="translate(10, 15) rotate(-15)">
+    <!-- Finger holes -->
+    <circle cx="10" cy="40" r="6" stroke="#7f8c8d" stroke-width="3"/>
+    <circle cx="26" cy="40" r="6" stroke="#7f8c8d" stroke-width="3"/>
+    <!-- Blades -->
+    <path d="M10 34L25 10" stroke="#bdc3c7" stroke-width="4" stroke-linecap="round"/>
+    <path d="M26 34L11 10" stroke="#bdc3c7" stroke-width="4" stroke-linecap="round"/>
+    <!-- Pivot -->
+    <circle cx="18" cy="24" r="2" fill="#7f8c8d"/>
+  </g>
+</svg>

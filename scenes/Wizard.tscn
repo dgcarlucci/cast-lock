@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/Wizard.gd" id="1_x8b7l"]
+[ext_resource type="Texture2D" path="res://resources/wizard/body.svg" id="2_body"]
+[ext_resource type="Texture2D" path="res://resources/wizard/robe_basic.svg" id="3_robe"]
+[ext_resource type="Texture2D" path="res://resources/wizard/hat_basic.svg" id="4_hat"]
+[ext_resource type="Texture2D" path="res://resources/wizard/eyes_cute.svg" id="5_eyes"]
+[ext_resource type="Texture2D" path="res://resources/wizard/hair_basic.svg" id="6_hair"]
+[ext_resource type="Texture2D" path="res://resources/wizard/beard_basic.svg" id="7_beard"]
+
+[node name="Wizard" type="Node2D"]
+script = ExtResource("1_x8b7l")
+
+[node name="Layers" type="Node2D" parent="."]
+
+[node name="Body" type="Sprite2D" parent="Layers"]
+texture = ExtResource("2_body")
+centered = false
+offset = Vector2(-32, -64)
+
+[node name="Hair" type="Sprite2D" parent="Layers"]
+texture = ExtResource("6_hair")
+centered = false
+offset = Vector2(-32, -64)
+
+[node name="Beard" type="Sprite2D" parent="Layers"]
+texture = ExtResource("7_beard")
+centered = false
+offset = Vector2(-32, -64)
+
+[node name="Robe" type="Sprite2D" parent="Layers"]
+texture = ExtResource("3_robe")
+centered = false
+offset = Vector2(-32, -64)
+
+[node name="Eyes" type="Sprite2D" parent="Layers"]
+texture = ExtResource("5_eyes")
+centered = false
+offset = Vector2(-32, -64)
+
+[node name="Hat" type="Sprite2D" parent="Layers"]
+texture = ExtResource("4_hat")
+centered = false
+offset = Vector2(-32, -64)

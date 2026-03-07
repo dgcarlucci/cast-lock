@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://52ed5ny5yoax"]
+
+[ext_resource type="Script" uid="uid://cepcahmwvq4go" path="res://scripts/Main.gd" id="1_x8b7q"]
+[ext_resource type="PackedScene" uid="uid://d1g8x7k8p6j1m" path="res://scenes/Wizard.tscn" id="2_x8b7r"]
+[ext_resource type="PackedScene" uid="uid://c1g8x7k8p6j1n" path="res://scenes/UI_Overlay.tscn" id="3_x8b7s"]
+[ext_resource type="Texture2D" uid="uid://btnoaalk02nj1" path="res://resources/slime_sprite.svg" id="4_j8b7m"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_x8b7q")
+
+[node name="Wizard" parent="." instance=ExtResource("2_x8b7r")]
+position = Vector2(100, 180)
+
+[node name="Enemy" type="Sprite2D" parent="."]
+position = Vector2(200, 180)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("4_j8b7m")
+
+[node name="UI_Overlay" parent="." instance=ExtResource("3_x8b7s")]
+offset_right = 300.0
+offset_bottom = 250.0
+
+[node name="AttackTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

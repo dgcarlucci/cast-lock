@@ -1,0 +1,13 @@
+<svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+  <!-- Anvil Base -->
+  <path d="M8 36 L40 36 L36 32 L12 32 Z" fill="#4B0082" />
+  <!-- Anvil Body -->
+  <rect x="14" y="24" width="20" height="8" fill="#4B0082" />
+  <!-- Anvil Top -->
+  <path d="M4 16 L32 16 Q44 16 44 24 L10 24 Z" fill="#6A5ACD" />
+  <!-- Glowing Rune -->
+  <rect x="22" y="18" width="4" height="4" fill="#00FFFF" rx="1" />
+  <!-- Sparkles -->
+  <circle cx="38" cy="12" r="1.5" fill="#FFFFFF" />
+  <circle cx="6" cy="10" r="1" fill="#FFFFFF" />
+</svg>
