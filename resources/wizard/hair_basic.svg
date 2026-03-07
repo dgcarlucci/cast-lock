@@ -1,5 +1,5 @@
 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Messy Hair -->
-  <path d="M18 24C16 20 18 10 32 8C46 10 48 20 46 24" stroke="#333" stroke-width="3" stroke-linecap="round"/>
-  <path d="M16 26L14 30M48 26L50 30" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+  <!-- Messy Hair (Shifted down to hug head) -->
+  <path d="M18 28C16 24 18 14 32 12C46 14 48 24 46 28" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+  <path d="M16 30L14 34M48 30L50 34" stroke="#333" stroke-width="2" stroke-linecap="round"/>
 </svg>
