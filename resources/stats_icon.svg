@@ -1,0 +1,8 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Head -->
+  <circle cx="32" cy="20" r="8" fill="#ecf0f1" stroke="#333" stroke-width="2"/>
+  <!-- Torso -->
+  <path d="M16 50C16 40 20 34 32 34C44 34 48 40 48 50V56H16V50Z" fill="#ecf0f1" stroke="#333" stroke-width="2"/>
+  <!-- Stat lines -->
+  <path d="M24 42H40M24 48H36" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+</svg>

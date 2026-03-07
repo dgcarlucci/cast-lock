@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://c1g8x7k8p6j1n"]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scripts/UI_Overlay.gd" id="1_x8b7o"]
-[ext_resource type="Texture2D" uid="uid://b1v7j8b7j8b7n" path="res://resources/anvil_icon.svg" id="2_j8b7n"]
+[ext_resource type="Texture2D" path="res://resources/anvil_icon.svg" id="2_j8b7n"]
 [ext_resource type="Texture2D" path="res://resources/barber_icon.svg" id="3_barber"]
+[ext_resource type="Texture2D" path="res://resources/stats_icon.svg" id="4_stats"]
+[ext_resource type="Texture2D" path="res://resources/gear_icon.svg" id="5_gear"]
 
 [node name="UI_Overlay" type="Control"]
 layout_mode = 3
@@ -41,48 +43,45 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "GOLD: 0"
 
-[node name="CraftButton" type="TextureButton" parent="."]
+[node name="ActionTray" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 10.0
-offset_top = -58.0
-offset_right = 58.0
+offset_top = -48.0
+offset_right = 210.0
 offset_bottom = -10.0
 grow_vertical = 0
+theme_override_constants/separation = 8
+
+[node name="CraftButton" type="TextureButton" parent="ActionTray"]
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 2
 texture_normal = ExtResource("2_j8b7n")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="CustomizeButton" type="TextureButton" parent="."]
-layout_mode = 1
-anchors_preset = 0
-offset_left = 10.0
-offset_top = 30.0
-offset_right = 74.0
-offset_bottom = 94.0
-scale = Vector2(0.6, 0.6)
+[node name="CustomizeButton" type="TextureButton" parent="ActionTray"]
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 2
 texture_normal = ExtResource("3_barber")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="LootLogLabel" type="Label" parent="."]
-modulate = Color(1, 1, 1, 0.6)
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -120.0
-offset_top = -70.0
-offset_right = -10.0
-offset_bottom = -10.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_constants/line_spacing = -2
-theme_override_font_sizes/font_size = 9
-text = "Recent Loot:
-- None"
-horizontal_alignment = 2
-vertical_alignment = 2
+[node name="StatsButton" type="TextureButton" parent="ActionTray"]
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 2
+texture_normal = ExtResource("4_stats")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="SettingsButton" type="TextureButton" parent="ActionTray"]
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 2
+texture_normal = ExtResource("5_gear")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="PlaterBar" type="ProgressBar" parent="."]
 layout_mode = 0
@@ -103,7 +102,16 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CustomizationPanel" type="ColorRect" parent="."]
+[node name="Overlays" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CustomizationPanel" type="ColorRect" parent="Overlays"]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -117,46 +125,192 @@ offset_right = 100.0
 offset_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.784314)
+color = Color(0.129412, 0.129412, 0.129412, 0.901961)
 
-[node name="VBox" type="VBoxContainer" parent="CustomizationPanel"]
+[node name="VBox" type="VBoxContainer" parent="Overlays/CustomizationPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="CustomizationPanel/VBox"]
+[node name="Label" type="Label" parent="Overlays/CustomizationPanel/VBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = "WIZARD LOOK"
+text = "BARBER SHOP"
 horizontal_alignment = 1
 
-[node name="RandomizeButton" type="Button" parent="CustomizationPanel/VBox"]
+[node name="RandomizeButton" type="Button" parent="Overlays/CustomizationPanel/VBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
 text = "RANDOMIZE COLORS"
 
-[node name="BeardToggle" type="Button" parent="CustomizationPanel/VBox"]
+[node name="BeardToggle" type="Button" parent="Overlays/CustomizationPanel/VBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
 text = "TOGGLE BEARD"
 
-[node name="HairToggle" type="Button" parent="CustomizationPanel/VBox"]
+[node name="HairToggle" type="Button" parent="Overlays/CustomizationPanel/VBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
 text = "TOGGLE HAIR"
 
-[node name="CloseButton" type="Button" parent="CustomizationPanel/VBox"]
+[node name="CloseButton" type="Button" parent="Overlays/CustomizationPanel/VBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
 text = "CLOSE"
 
-[connection signal="pressed" from="CraftButton" to="." method="_on_craft_button_pressed"]
-[connection signal="pressed" from="CustomizeButton" to="." method="_on_customize_button_pressed"]
-[connection signal="pressed" from="CustomizationPanel/VBox/RandomizeButton" to="." method="_on_randomize_button_pressed"]
-[connection signal="pressed" from="CustomizationPanel/VBox/BeardToggle" to="." method="_on_beard_toggle_pressed"]
-[connection signal="pressed" from="CustomizationPanel/VBox/HairToggle" to="." method="_on_hair_toggle_pressed"]
-[connection signal="pressed" from="CustomizationPanel/VBox/CloseButton" to="." method="_on_close_button_pressed"]
+[node name="StatsPanel" type="ColorRect" parent="Overlays"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -80.0
+offset_right = 100.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.129412, 0.129412, 0.129412, 0.901961)
+
+[node name="VBox" type="VBoxContainer" parent="Overlays/StatsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Overlays/StatsPanel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "WIZARD STATS"
+horizontal_alignment = 1
+
+[node name="Scroll" type="ScrollContainer" parent="Overlays/StatsPanel/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="StatsLabel" type="Label" parent="Overlays/StatsPanel/VBox/Scroll"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "Atk: 10
+Crit: 5%
+Haste: 1.0"
+
+[node name="CloseButton" type="Button" parent="Overlays/StatsPanel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "CLOSE"
+
+[node name="CraftingPanel" type="ColorRect" parent="Overlays"]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -140.0
+offset_top = -120.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+color = Color(0.129412, 0.129412, 0.129412, 0.627451)
+
+[node name="VBox" type="VBoxContainer" parent="Overlays/CraftingPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Overlays/CraftingPanel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "RECENT CRAFTS"
+horizontal_alignment = 1
+
+[node name="LootLogLabel" type="Label" parent="Overlays/CraftingPanel/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/line_spacing = -2
+theme_override_font_sizes/font_size = 8
+text = "- None"
+vertical_alignment = 2
+
+[node name="SettingsPanel" type="ColorRect" parent="Overlays"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -50.0
+offset_right = 100.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.129412, 0.129412, 0.129412, 0.901961)
+
+[node name="VBox" type="VBoxContainer" parent="Overlays/SettingsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Overlays/SettingsPanel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "SETTINGS"
+horizontal_alignment = 1
+
+[node name="SaveButton" type="Button" parent="Overlays/SettingsPanel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "SAVE GAME"
+
+[node name="CloseButton" type="Button" parent="Overlays/SettingsPanel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "CLOSE"
+
+[connection signal="pressed" from="ActionTray/CraftButton" to="." method="_on_craft_button_pressed"]
+[connection signal="pressed" from="ActionTray/CustomizeButton" to="." method="_on_customize_button_pressed"]
+[connection signal="pressed" from="ActionTray/StatsButton" to="." method="_on_stats_button_pressed"]
+[connection signal="pressed" from="ActionTray/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Overlays/CustomizationPanel/VBox/RandomizeButton" to="." method="_on_randomize_button_pressed"]
+[connection signal="pressed" from="Overlays/CustomizationPanel/VBox/BeardToggle" to="." method="_on_beard_toggle_pressed"]
+[connection signal="pressed" from="Overlays/CustomizationPanel/VBox/HairToggle" to="." method="_on_hair_toggle_pressed"]
+[connection signal="pressed" from="Overlays/CustomizationPanel/VBox/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="Overlays/StatsPanel/VBox/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="Overlays/SettingsPanel/VBox/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="Overlays/SettingsPanel/VBox/CloseButton" to="." method="_on_close_button_pressed"]
