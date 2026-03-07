@@ -39,6 +39,9 @@ var enemy_textures = [
 	preload("res://resources/enemies/dark_knight.svg")
 ]
 
+var last_input_cast_time: float = 0.0
+var input_cast_cooldown: float = 0.1 # Max 10 manual casts per second
+
 func _ready():
 	# Explicitly set window background to transparent in DisplayServer (Godot 4)
 	DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_TRANSPARENT, true)
@@ -50,38 +53,28 @@ func _ready():
 	spawn_enemy()
 	start_combat()
 
+func _input(event):
+	if event is InputEventKey or event is InputEventMouseButton:
+		if event.is_pressed():
+			var now = Time.get_ticks_msec() / 1000.0
+			if now - last_input_cast_time >= input_cast_cooldown:
+				last_input_cast_time = now
+				attack()
+
 func _on_wizard_appearance_changed():
 	wizard.update_appearance(StatsManager.stats)
 	StatsManager.save_stats()
 
 func _on_ui_craft_pressed():
-	var cost = 10
-	if StatsManager.stats.gold >= cost:
-		StatsManager.stats.gold -= cost
-		ui.update_stats()
-		
-		var roll = randf()
-		if roll < 0.05:
-			# Lionheart!
-			StatsManager.stats.attack_power *= 2.0
-			StatsManager.stats.haste += 0.1
-			ui.add_loot_entry("Lionheart Crafted! x2 AP, +0.1 Haste")
-			ui.show_floating_text("LIONHEART!", Color.GOLD)
-			# Update timer if haste changed
-			attack_timer.wait_time = 1.5 / StatsManager.stats.haste
-		else:
-			ui.add_loot_entry("Iron Dagger (Junk)")
-		
-		StatsManager.save_stats()
-	else:
-		ui.show_floating_text("NOT ENOUGH GOLD!", Color.RED)
+	# This can stay for the Grimoire Workshop button or old logic
+	# We use the Workshop research logic now primarily
+	pass
 
 func spawn_enemy():
 	max_enemy_hp = StatsManager.get_enemy_hp()
 	current_enemy_hp = max_enemy_hp
 	ui.update_enemy_health(current_enemy_hp, max_enemy_hp)
 	
-	# Random texture
 	var tex = enemy_textures[randi() % enemy_textures.size()]
 	enemy.set_texture(tex)
 
@@ -110,9 +103,10 @@ func attack():
 		ui.update_enemy_health(current_enemy_hp, max_enemy_hp)
 		enemy.play_hit_animation()
 		
-		# Gain spell mastery
+		# Progress tracking
 		SpellManager.gain_mastery(StatsManager.stats.active_spell_id, 5, StatsManager.stats)
-		ui.update_stats() # Update UI to show progress
+		StatsManager.stats.total_casts += 1
+		ui.update_stats()
 		
 		if current_enemy_hp <= 0:
 			on_enemy_death()

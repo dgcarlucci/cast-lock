@@ -34,3 +34,4 @@ class_name WizardStats
 	"magic_missile": {"rank": 1, "mastery": 0}
 }
 @export var spell_mastery_xp: int = 0
+@export var total_casts: int = 0
