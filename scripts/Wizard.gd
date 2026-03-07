@@ -65,8 +65,10 @@ func update_appearance(stats: WizardStats):
 		weapon.visible = false
 	else:
 		weapon.visible = true
+		weapon.modulate = Color.WHITE # Reset modulation to see full SVG colors
 		if stats.main_hand_style == 1:
 			weapon.texture = load("res://resources/player/appearance/wand_basic.svg")
+		# ... rest of weapons ...
 		elif stats.main_hand_style == 2:
 			weapon.texture = load("res://resources/player/appearance/staff_basic.svg")
 		elif stats.main_hand_style == 3:
