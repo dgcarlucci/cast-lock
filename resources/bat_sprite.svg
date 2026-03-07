@@ -1,0 +1,13 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Bat Body -->
+  <ellipse cx="32" cy="30" rx="8" ry="10" fill="#444" stroke="#222" stroke-width="2"/>
+  <!-- Wings -->
+  <path d="M24 30L8 20L12 35L24 32" fill="#444" stroke="#222" stroke-width="2"/>
+  <path d="M40 30L56 20L52 35L40 32" fill="#444" stroke="#222" stroke-width="2"/>
+  <!-- Ears -->
+  <path d="M26 22L28 12L32 20" fill="#444" stroke="#222" stroke-width="2"/>
+  <path d="M38 22L36 12L32 20" fill="#444" stroke="#222" stroke-width="2"/>
+  <!-- Eyes -->
+  <circle cx="29" cy="28" r="1.5" fill="#e74c3c"/>
+  <circle cx="35" cy="28" r="1.5" fill="#e74c3c"/>
+</svg>

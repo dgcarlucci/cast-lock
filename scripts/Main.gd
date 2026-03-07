@@ -2,10 +2,17 @@ extends Node2D
 
 @onready var wizard = $Wizard
 @onready var ui = $UI_Overlay
+@onready var enemy = $Enemy
 @onready var attack_timer = $AttackTimer
 
 var current_enemy_hp: float = 0.0
 var max_enemy_hp: float = 0.0
+
+var enemy_textures = [
+	preload("res://resources/slime_sprite.svg"),
+	preload("res://resources/bat_sprite.svg"),
+	preload("res://resources/ghost_sprite.svg")
+]
 
 func _ready():
 	# Explicitly set window background to transparent in DisplayServer (Godot 4)
@@ -48,7 +55,10 @@ func spawn_enemy():
 	max_enemy_hp = StatsManager.get_enemy_hp()
 	current_enemy_hp = max_enemy_hp
 	ui.update_enemy_health(current_enemy_hp, max_enemy_hp)
-	print("Spawned enemy with HP: ", max_enemy_hp)
+	
+	# Random texture
+	var tex = enemy_textures[randi() % enemy_textures.size()]
+	enemy.set_texture(tex)
 
 func start_combat():
 	attack_timer.wait_time = 1.5 / StatsManager.stats.haste
@@ -58,7 +68,7 @@ func _on_attack_timer_timeout():
 	attack()
 
 func attack():
-	if wizard.current_state != wizard.State.IDLE:
+	if wizard.current_state != wizard.State.IDLE or current_enemy_hp <= 0:
 		return
 		
 	wizard.play_cast_animation(func():
@@ -73,15 +83,20 @@ func attack():
 			
 		current_enemy_hp -= damage
 		ui.update_enemy_health(current_enemy_hp, max_enemy_hp)
+		enemy.play_hit_animation()
 		
 		if current_enemy_hp <= 0:
 			on_enemy_death()
 	)
 
 func on_enemy_death():
-	var gold = StatsManager.get_gold_reward()
-	StatsManager.stats.gold += int(gold)
-	StatsManager.add_xp(20) # Fixed XP for now
-	
-	ui.update_stats()
-	spawn_enemy()
+	attack_timer.stop()
+	enemy.play_death_animation(func():
+		var gold = StatsManager.get_gold_reward()
+		StatsManager.stats.gold += int(gold)
+		StatsManager.add_xp(20)
+		
+		ui.update_stats()
+		spawn_enemy()
+		start_combat()
+	)
