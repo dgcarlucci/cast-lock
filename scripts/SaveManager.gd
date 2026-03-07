@@ -26,7 +26,8 @@ func save_game(stats: WizardStats):
 	if file:
 		file.store_string(json_string)
 		file.close()
-		print("Game saved!")
+		# Only print in debug or just remove to clean up logs
+		# print("Game saved!")
 
 func load_game() -> Dictionary:
 	if not FileAccess.file_exists(SAVE_PATH):

@@ -5,6 +5,7 @@ signal appearance_changed
 
 @onready var gold_label = $TopBar/GoldLabel
 @onready var level_label = $TopBar/LevelLabel
+@onready var xp_bar = $TopBar/XPBar
 @onready var enemy_health_bar = $PlaterBar
 @onready var floating_text_container = $FloatingTextContainer
 @onready var loot_log_label = $LootLogLabel
@@ -48,6 +49,9 @@ func _on_hair_toggle_pressed():
 func update_stats():
 	gold_label.text = "GOLD: " + str(int(StatsManager.stats.gold))
 	level_label.text = "LVL: " + str(StatsManager.stats.level)
+	
+	xp_bar.max_value = StatsManager.get_xp_needed()
+	xp_bar.value = StatsManager.stats.xp
 
 func update_enemy_health(current, max_hp):
 	enemy_health_bar.max_value = max_hp
