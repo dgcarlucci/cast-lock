@@ -1,0 +1,11 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Parchment/Paper texture -->
+  <path d="M20 30C20 20 30 20 40 20H216C226 20 236 20 236 30V226C236 236 226 236 216 236H40C30 236 20 236 20 226V30Z" fill="#f3e5ab" stroke="#8b4513" stroke-width="4"/>
+  <!-- Decorative corners -->
+  <path d="M20 50V30H40" stroke="#8b4513" stroke-width="2"/>
+  <path d="M216 20H236V40" stroke="#8b4513" stroke-width="2"/>
+  <path d="M20 206V226H40" stroke="#8b4513" stroke-width="2"/>
+  <path d="M216 236H236V216" stroke="#8b4513" stroke-width="2"/>
+  <!-- Subtle line details -->
+  <path d="M40 40H216" stroke="#8b4513" stroke-width="1" opacity="0.2"/>
+</svg>
