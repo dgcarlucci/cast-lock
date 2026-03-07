@@ -10,7 +10,7 @@ signal appearance_changed
 @onready var floating_text_container = $FloatingTextContainer
 
 @onready var grimoire = $Grimoire
-@onready var tab_container = $Grimoire/Margin/TabContainer
+@onready var tab_container = $Grimoire/TabContainer
 @onready var stats_label = $Grimoire/TabContainer/Stats/LeftPage/VBox/StatsLabel
 @onready var combat_label = $Grimoire/TabContainer/Stats/RightPage/VBox/Label
 @onready var loot_log_label = $Grimoire/TabContainer/Workshop/RightPage/VBox/LootLogLabel
@@ -43,6 +43,11 @@ func _close_grimoire():
 	tween.tween_property(grimoire, "scale", Vector2(0.8, 0.8), 0.2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	tween.tween_property(grimoire, "modulate:a", 0.0, 0.2)
 	tween.chain().tween_callback(func(): grimoire.visible = false)
+
+func _on_nav_btn_pressed(index: int):
+	tab_container.current_tab = index
+	if index == 0:
+		update_stats()
 
 func _on_craft_button_pressed():
 	craft_pressed.emit()

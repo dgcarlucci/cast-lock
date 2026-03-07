@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://scripts/UI_Overlay.gd" id="1_x8b7o"]
 [ext_resource type="Texture2D" path="res://resources/book_icon.svg" id="2_book"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" path="res://resources/stats_icon.svg" id="6_stats"]
 [ext_resource type="Texture2D" path="res://resources/barber_tab_icon.svg" id="7_barber"]
 [ext_resource type="Texture2D" path="res://resources/gear_icon.svg" id="8_gear"]
+[ext_resource type="Texture2D" path="res://resources/close_icon.svg" id="9_close"]
 
 [node name="UI_Overlay" type="Control"]
 layout_mode = 3
@@ -90,9 +91,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -140.0
-offset_top = -100.0
+offset_top = -110.0
 offset_right = 140.0
-offset_bottom = 100.0
+offset_bottom = 110.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -111,16 +112,15 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_bottom = -30.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 0
-tab_alignment = 1
+tabs_visible = false
 
 [node name="Stats" type="HSplitContainer" parent="Grimoire/TabContainer"]
 layout_mode = 2
-theme_override_icons/grabber = ExtResource("6_stats")
 dragger_visibility = 2
-metadata/_tab_icon = ExtResource("6_stats")
 
 [node name="LeftPage" type="MarginContainer" parent="Grimoire/TabContainer/Stats"]
 layout_mode = 2
@@ -170,7 +170,6 @@ Haste: 1.0"
 visible = false
 layout_mode = 2
 dragger_visibility = 2
-metadata/_tab_icon = ExtResource("4_anvil")
 
 [node name="LeftPage" type="MarginContainer" parent="Grimoire/TabContainer/Workshop"]
 layout_mode = 2
@@ -234,7 +233,6 @@ text = "- None"
 visible = false
 layout_mode = 2
 dragger_visibility = 2
-metadata/_tab_icon = ExtResource("7_barber")
 
 [node name="LeftPage" type="MarginContainer" parent="Grimoire/TabContainer/Barber"]
 layout_mode = 2
@@ -295,7 +293,6 @@ position = Vector2(60, 60)
 visible = false
 layout_mode = 2
 dragger_visibility = 2
-metadata/_tab_icon = ExtResource("8_gear")
 
 [node name="LeftPage" type="MarginContainer" parent="Grimoire/TabContainer/Library"]
 layout_mode = 2
@@ -330,18 +327,52 @@ text = "VERSION 1.0
 Wizards Desk Idle"
 horizontal_alignment = 1
 
-[node name="CloseButton" type="Button" parent="Grimoire"]
+[node name="Footer" type="HBoxContainer" parent="Grimoire"]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
-offset_left = -25.0
-offset_top = 5.0
-offset_right = -5.0
-offset_bottom = 25.0
-grow_horizontal = 0
-theme_override_font_sizes/font_size = 10
-text = "X"
+offset_top = -35.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="StatsBtn" type="TextureButton" parent="Grimoire/Footer"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture_normal = ExtResource("6_stats")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="WorkshopBtn" type="TextureButton" parent="Grimoire/Footer"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture_normal = ExtResource("4_anvil")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="BarberBtn" type="TextureButton" parent="Grimoire/Footer"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture_normal = ExtResource("7_barber")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="LibraryBtn" type="TextureButton" parent="Grimoire/Footer"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture_normal = ExtResource("8_gear")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="CloseBtn" type="TextureButton" parent="Grimoire/Footer"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture_normal = ExtResource("9_close")
+ignore_texture_size = true
+stretch_mode = 5
 
 [connection signal="pressed" from="BookButton" to="." method="_on_book_button_pressed"]
 [connection signal="pressed" from="Grimoire/TabContainer/Workshop/LeftPage/VBox/CraftButtonInside" to="." method="_on_craft_button_pressed"]
@@ -349,4 +380,8 @@ text = "X"
 [connection signal="pressed" from="Grimoire/TabContainer/Barber/LeftPage/VBox/BeardToggle" to="." method="_on_beard_toggle_pressed"]
 [connection signal="pressed" from="Grimoire/TabContainer/Barber/LeftPage/VBox/HairToggle" to="." method="_on_hair_toggle_pressed"]
 [connection signal="pressed" from="Grimoire/TabContainer/Library/LeftPage/VBox/SaveButton" to="." method="_on_save_button_pressed"]
-[connection signal="pressed" from="Grimoire/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="Grimoire/Footer/StatsBtn" to="." method="_on_nav_btn_pressed" binds= [0]]
+[connection signal="pressed" from="Grimoire/Footer/WorkshopBtn" to="." method="_on_nav_btn_pressed" binds= [1]]
+[connection signal="pressed" from="Grimoire/Footer/BarberBtn" to="." method="_on_nav_btn_pressed" binds= [2]]
+[connection signal="pressed" from="Grimoire/Footer/LibraryBtn" to="." method="_on_nav_btn_pressed" binds= [3]]
+[connection signal="pressed" from="Grimoire/Footer/CloseBtn" to="." method="_on_close_button_pressed"]
