@@ -35,3 +35,4 @@ class_name WizardStats
 }
 @export var spell_mastery_xp: int = 0
 @export var total_casts: int = 0
+@export var companion_mode_typing: bool = false # false = Passive, true = Typing

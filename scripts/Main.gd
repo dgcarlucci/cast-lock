@@ -40,20 +40,28 @@ var enemy_textures = [
 ]
 
 var last_input_cast_time: float = 0.0
-var input_cast_cooldown: float = 0.1 # Max 10 manual casts per second
+var input_cast_cooldown: float = 0.1
 
 func _ready():
-	# Explicitly set window background to transparent in DisplayServer (Godot 4)
 	DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_TRANSPARENT, true)
 	get_viewport().transparent_bg = true
 	
-	ui.craft_pressed.connect(_on_ui_craft_pressed)
 	ui.appearance_changed.connect(_on_wizard_appearance_changed)
 	
 	spawn_enemy()
-	# Auto-attack timer disabled for typing-mage branch
+	refresh_companion_mode()
+
+func refresh_companion_mode():
+	var stats = StatsManager.stats
+	if stats.companion_mode_typing:
+		attack_timer.stop()
+	else:
+		start_combat()
 
 func _input(event):
+	if not StatsManager.stats.companion_mode_typing:
+		return
+		
 	if event is InputEventKey or event is InputEventMouseButton:
 		if event.is_pressed():
 			var now = Time.get_ticks_msec() / 1000.0
@@ -64,25 +72,23 @@ func _input(event):
 func _on_wizard_appearance_changed():
 	wizard.update_appearance(StatsManager.stats)
 	StatsManager.save_stats()
-
-func _on_ui_craft_pressed():
-	pass
+	# Check if mode changed
+	refresh_companion_mode()
 
 func spawn_enemy():
 	max_enemy_hp = StatsManager.get_enemy_hp()
 	current_enemy_hp = max_enemy_hp
 	ui.update_enemy_health(current_enemy_hp, max_enemy_hp)
-	
 	var tex = enemy_textures[randi() % enemy_textures.size()]
 	enemy.set_texture(tex)
 
 func start_combat():
-	# Passive combat disabled
-	pass
+	if StatsManager.stats.companion_mode_typing: return
+	attack_timer.wait_time = 1.5 / StatsManager.stats.haste
+	attack_timer.start()
 
 func _on_attack_timer_timeout():
-	# No auto-attacks
-	pass
+	attack()
 
 func attack():
 	if wizard.current_state != wizard.State.IDLE or current_enemy_hp <= 0:
@@ -91,7 +97,6 @@ func attack():
 	wizard.play_cast_animation(func():
 		var damage = StatsManager.stats.attack_power
 		var is_crit = randf() < StatsManager.stats.crit_chance
-		
 		if is_crit:
 			damage *= 2.0
 			ui.show_floating_text("CRIT!", Color.YELLOW)
@@ -102,7 +107,6 @@ func attack():
 		ui.update_enemy_health(current_enemy_hp, max_enemy_hp)
 		enemy.play_hit_animation()
 		
-		# Progress tracking
 		SpellManager.gain_mastery(StatsManager.stats.active_spell_id, 5, StatsManager.stats)
 		StatsManager.stats.total_casts += 1
 		ui.update_stats()
@@ -117,8 +121,7 @@ func on_enemy_death():
 		var gold = StatsManager.get_gold_reward()
 		StatsManager.stats.gold += int(gold)
 		StatsManager.add_xp(20)
-		
 		ui.update_stats()
 		spawn_enemy()
-		start_combat()
+		refresh_companion_mode()
 	)

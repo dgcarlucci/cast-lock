@@ -36,6 +36,7 @@ signal appearance_changed
 @onready var unlocked_items_container = $Grimoire/TabContainer/Armory/LeftPage/VBox/Scroll/UnlockedItems
 
 @onready var reset_confirmation = $ResetConfirmation
+@onready var typing_mode_check = $Grimoire/TabContainer/Library/LeftPage/VBox/TypingModeCheck
 
 var loot_log: Array = []
 var selected_spell_id: String = "magic_missile"
@@ -104,6 +105,11 @@ func _on_reset_confirmed():
 	_update_all_previews()
 	appearance_changed.emit()
 	show_floating_text("PROGRESS RESET", Color.RED)
+
+func _on_typing_mode_toggled(toggled_on: bool):
+	StatsManager.stats.companion_mode_typing = toggled_on
+	appearance_changed.emit()
+	StatsManager.save_stats()
 
 # --- BARBER SHOP (Colors & Grooming) ---
 func _on_randomize_button_pressed():
@@ -274,6 +280,10 @@ func update_spell_ui():
 func update_stats():
 	var stats = StatsManager.stats
 	if not stats: return
+	
+	if typing_mode_check:
+		typing_mode_check.button_pressed = stats.companion_mode_typing
+		
 	gold_label.text = "GOLD: " + str(int(stats.gold))
 	level_label.text = "LVL: " + str(stats.level)
 	xp_bar.max_value = StatsManager.get_xp_needed()
