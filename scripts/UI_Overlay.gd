@@ -19,7 +19,7 @@ signal appearance_changed
 @onready var wizard_preview_armory = $Grimoire/TabContainer/Armory/RightPage/PreviewContainer/SubViewport/WizardPreviewArmory
 
 # Spell UI
-@onready var spell_list_container = $Grimoire/TabContainer/Spells/LeftPage/VBox/SpellList
+@onready var spell_list_container = $Grimoire/TabContainer/Spells/LeftPage/VBox/Scroll/SpellList
 @onready var spell_title = $Grimoire/TabContainer/Spells/RightPage/VBox/SpellTitle
 @onready var spell_info = $Grimoire/TabContainer/Spells/RightPage/VBox/SpellInfo
 @onready var train_button = $Grimoire/TabContainer/Spells/RightPage/VBox/TrainButton
