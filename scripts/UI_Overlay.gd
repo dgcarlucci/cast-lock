@@ -32,11 +32,13 @@ signal appearance_changed
 @onready var item_info = $Grimoire/TabContainer/Workshop/RightPage/VBox/ItemInfo
 @onready var research_button = $Grimoire/TabContainer/Workshop/RightPage/VBox/ResearchButton
 
-# Armory UI (List of unlocked styles)
+# Armory UI
 @onready var unlocked_items_container = $Grimoire/TabContainer/Armory/LeftPage/VBox/Scroll/UnlockedItems
 
+# Library / Settings
 @onready var reset_confirmation = $ResetConfirmation
-@onready var typing_mode_check = $Grimoire/TabContainer/Library/LeftPage/VBox/TypingModeCheck
+@onready var mode_label = $Grimoire/TabContainer/Library/LeftPage/VBox/ModeHBox/ModeLabel
+@onready var mode_toggle = $Grimoire/TabContainer/Library/LeftPage/VBox/ModeHBox/AutoCastToggle
 
 var loot_log: Array = []
 var selected_spell_id: String = "magic_missile"
@@ -50,12 +52,11 @@ func _ready():
 	grimoire.visible = false
 	grimoire.scale = Vector2(0.5, 0.5)
 	grimoire.modulate.a = 0
+	_update_mode_label()
 
 func _on_book_button_pressed():
-	if grimoire.visible:
-		_close_grimoire()
-	else:
-		_open_grimoire()
+	if grimoire.visible: _close_grimoire()
+	else: _open_grimoire()
 
 func _open_grimoire():
 	update_stats()
@@ -63,6 +64,7 @@ func _open_grimoire():
 	update_workshop_ui()
 	update_armory_ui()
 	_update_all_previews()
+	_update_mode_label()
 	grimoire.visible = true
 	var tween = get_tree().create_tween().set_parallel(true)
 	tween.tween_property(grimoire, "scale", Vector2(1.0, 1.0), 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
@@ -77,6 +79,14 @@ func _close_grimoire():
 func _update_all_previews():
 	wizard_preview_barber.update_appearance(StatsManager.stats)
 	wizard_preview_armory.update_appearance(StatsManager.stats)
+
+func _update_mode_label():
+	if StatsManager.stats.companion_mode_typing:
+		mode_label.text = "MODE: ACTIVE (TYPING)"
+		mode_toggle.button_pressed = true
+	else:
+		mode_label.text = "MODE: PASSIVE (IDLE)"
+		mode_toggle.button_pressed = false
 
 func _on_nav_btn_pressed(index: int):
 	tab_container.current_tab = index
@@ -103,15 +113,17 @@ func _on_reset_confirmed():
 	update_workshop_ui()
 	update_armory_ui()
 	_update_all_previews()
+	_update_mode_label()
 	appearance_changed.emit()
 	show_floating_text("PROGRESS RESET", Color.RED)
 
 func _on_typing_mode_toggled(toggled_on: bool):
 	StatsManager.stats.companion_mode_typing = toggled_on
+	_update_mode_label()
 	appearance_changed.emit()
 	StatsManager.save_stats()
 
-# --- BARBER SHOP (Colors & Grooming) ---
+# --- BARBER SHOP ---
 func _on_randomize_button_pressed():
 	var stats = StatsManager.stats
 	stats.robe_color = Color(randf(), randf(), randf())
@@ -133,7 +145,7 @@ func _on_hair_toggle_pressed():
 	appearance_changed.emit()
 	_update_all_previews()
 
-# --- ARMORY (Styles & Gear Selection) ---
+# --- ARMORY ---
 func update_armory_ui():
 	for child in unlocked_items_container.get_children(): child.queue_free()
 	var stats = StatsManager.stats
@@ -164,7 +176,7 @@ func _on_equip_item_pressed(category: String, tier: int):
 	_update_all_previews()
 	update_stats()
 
-# --- WORKSHOP (Research & Blueprints) ---
+# --- WORKSHOP ---
 func _on_equip_cat_select(cat_id: String):
 	selected_equip_cat = cat_id
 	update_workshop_ui()
@@ -178,11 +190,9 @@ func _on_research_button_pressed():
 	if stats.gold >= item.get("cost", 0):
 		stats.gold -= item.get("cost", 0)
 		stats.unlocked_tiers[selected_equip_cat] = item.get("tier", 1)
-		# Auto-equip
 		if selected_equip_cat == "main_hand": stats.main_hand_style = item.get("tier", 1)
 		elif selected_equip_cat == "head": stats.hat_style = item.get("tier", 1)
 		elif selected_equip_cat == "body": stats.robe_style = item.get("tier", 1)
-		# Boosts
 		if item.has("power_boost"): stats.attack_power += item.get("power_boost", 0)
 		if item.has("haste_boost"): stats.haste += item.get("haste_boost", 0)
 		show_floating_text("RESEARCH COMPLETE!", Color.GOLD)
@@ -225,7 +235,7 @@ func update_workshop_ui():
 		research_button.text = "MAXED"
 		research_button.disabled = true
 
-# --- SPELL BOOK (Training & Mastery) ---
+# --- SPELLS ---
 func _on_spell_select_pressed(spell_id: String):
 	selected_spell_id = spell_id
 	update_spell_ui()
@@ -280,10 +290,6 @@ func update_spell_ui():
 func update_stats():
 	var stats = StatsManager.stats
 	if not stats: return
-	
-	if typing_mode_check:
-		typing_mode_check.button_pressed = stats.companion_mode_typing
-		
 	gold_label.text = "GOLD: " + str(int(stats.gold))
 	level_label.text = "LVL: " + str(stats.level)
 	xp_bar.max_value = StatsManager.get_xp_needed()
