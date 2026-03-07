@@ -288,8 +288,8 @@ stretch = true
 [node name="SubViewport" type="SubViewport" parent="Grimoire/TabContainer/Barber/RightPage/PreviewContainer"]
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(2, 2)
-render_target_update_mode = 0
+size = Vector2i(120, 180)
+render_target_update_mode = 4
 
 [node name="WizardPreviewBarber" parent="Grimoire/TabContainer/Barber/RightPage/PreviewContainer/SubViewport" instance=ExtResource("5_wiz")]
 position = Vector2(55, 120)
@@ -342,8 +342,8 @@ stretch = true
 [node name="SubViewport" type="SubViewport" parent="Grimoire/TabContainer/Armory/RightPage/PreviewContainer"]
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(2, 2)
-render_target_update_mode = 0
+size = Vector2i(120, 180)
+render_target_update_mode = 4
 
 [node name="WizardPreviewArmory" parent="Grimoire/TabContainer/Armory/RightPage/PreviewContainer/SubViewport" instance=ExtResource("5_wiz")]
 position = Vector2(55, 120)
@@ -372,9 +372,13 @@ theme_override_font_sizes/font_size = 10
 text = "SPELL BOOK"
 horizontal_alignment = 1
 
-[node name="SpellList" type="VBoxContainer" parent="Grimoire/TabContainer/Spells/LeftPage/VBox"]
+[node name="Scroll" type="ScrollContainer" parent="Grimoire/TabContainer/Spells/LeftPage/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="SpellList" type="VBoxContainer" parent="Grimoire/TabContainer/Spells/LeftPage/VBox/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="RightPage" type="MarginContainer" parent="Grimoire/TabContainer/Spells"]
 layout_mode = 2
