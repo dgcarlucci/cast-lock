@@ -1,0 +1,6 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Willow Wand -->
+  <path d="M32 52C32 52 35 40 45 30C55 20 50 15 50 15" stroke="#2ecc71" stroke-width="3" stroke-linecap="round"/>
+  <path d="M32 52L50 20" stroke="#8b4513" stroke-width="2" opacity="0.4"/>
+  <circle cx="52" cy="15" r="3" fill="#2ecc71" opacity="0.6"/>
+</svg>

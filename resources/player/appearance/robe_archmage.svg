@@ -1,0 +1,7 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Archmage Gown -->
+  <path d="M20 42L8 58L12 62L22 48H42L52 62L56 58L44 42H20Z" fill="white" stroke="#333" stroke-width="3"/>
+  <path d="M22 48V64H42V48" fill="white" stroke="#333" stroke-width="3"/>
+  <path d="M22 48L32 64L42 48" stroke="#d4af37" stroke-width="2" fill="none"/>
+  <path d="M20 42H44" stroke="#d4af37" stroke-width="4" opacity="0.5"/>
+</svg>

@@ -1,0 +1,7 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dragonbone Staff -->
+  <path d="M32 55L45 5" stroke="#f0f0f0" stroke-width="6" stroke-linecap="round"/>
+  <path d="M45 5L55 0L50 15L45 5Z" fill="#f0f0f0" stroke="#333" stroke-width="2"/>
+  <circle cx="48" cy="8" r="2" fill="#e74c3c"/>
+  <path d="M35 45L40 50M38 35L43 40" stroke="#333" stroke-width="2" opacity="0.2"/>
+</svg>

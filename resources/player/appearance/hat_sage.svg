@@ -1,0 +1,7 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Sage Crown -->
+  <path d="M15 25L20 15L32 20L44 15L49 25V30H15V25Z" fill="white" stroke="#333" stroke-width="2"/>
+  <circle cx="32" cy="22" r="2" fill="#3498db"/>
+  <circle cx="22" cy="20" r="1.5" fill="#3498db"/>
+  <circle cx="42" cy="20" r="1.5" fill="#3498db"/>
+</svg>

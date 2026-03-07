@@ -33,6 +33,32 @@ func update_appearance(stats: WizardStats):
 	hair.visible = stats.hair_style > 0
 	beard.visible = stats.beard_style > 0
 	
+	# Robe visibility and texture
+	if stats.robe_style <= 1:
+		robe.texture = load("res://resources/player/appearance/robe_basic.svg")
+	elif stats.robe_style == 2:
+		robe.texture = load("res://resources/player/appearance/robe_scholar.svg")
+	elif stats.robe_style == 3:
+		robe.texture = load("res://resources/player/appearance/robe_sage.svg")
+	elif stats.robe_style == 4:
+		robe.texture = load("res://resources/player/appearance/robe_archmage.svg")
+		
+	# Hat visibility and texture
+	if stats.hat_style == 0:
+		hat.visible = false
+	else:
+		hat.visible = true
+		if stats.hat_style == 1:
+			hat.texture = load("res://resources/player/appearance/hat_basic.svg")
+		elif stats.hat_style == 2:
+			hat.texture = load("res://resources/player/appearance/hat_apprentice.svg")
+		elif stats.hat_style == 3:
+			hat.texture = load("res://resources/player/appearance/hat_scholar.svg")
+		elif stats.hat_style == 4:
+			hat.texture = load("res://resources/player/appearance/hat_sage.svg")
+		elif stats.hat_style == 5:
+			hat.texture = load("res://resources/player/appearance/hat_archmage.svg")
+
 	# Weapon visibility and texture
 	if stats.main_hand_style == 0:
 		weapon.visible = false
@@ -42,6 +68,12 @@ func update_appearance(stats: WizardStats):
 			weapon.texture = load("res://resources/player/appearance/wand_basic.svg")
 		elif stats.main_hand_style == 2:
 			weapon.texture = load("res://resources/player/appearance/staff_basic.svg")
+		elif stats.main_hand_style == 3:
+			weapon.texture = load("res://resources/player/appearance/wand_willow.svg")
+		elif stats.main_hand_style == 4:
+			weapon.texture = load("res://resources/player/appearance/staff_arcane.svg")
+		elif stats.main_hand_style == 5:
+			weapon.texture = load("res://resources/player/appearance/staff_dragon.svg")
 
 func start_idle_animation():
 	var tween = get_tree().create_tween().set_loops()

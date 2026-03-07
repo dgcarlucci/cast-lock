@@ -1,0 +1,6 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Sage's Vestment -->
+  <path d="M20 42L10 55L15 60L22 48H42L49 60L54 55L44 42H20Z" fill="white" stroke="#333" stroke-width="2"/>
+  <path d="M22 48C22 48 25 62 32 62C39 62 42 48 42 48H22Z" fill="white" stroke="#333" stroke-width="2"/>
+  <circle cx="32" cy="48" r="3" fill="#3498db" stroke="#333" stroke-width="1"/>
+</svg>
