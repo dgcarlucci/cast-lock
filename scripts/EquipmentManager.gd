@@ -26,4 +26,6 @@ func get_item_data(category: String, index: int):
 func get_next_research_cost(category: String, current_tier: int) -> int:
 	var next_idx = current_tier
 	var data = get_item_data(category, next_idx)
-	return data["cost"] if data else -1
+	if data:
+		return data["cost"]
+	return -1
