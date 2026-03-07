@@ -53,13 +53,14 @@ func _ready():
 
 func refresh_companion_mode():
 	var stats = StatsManager.stats
-	if stats.companion_mode_typing:
-		attack_timer.stop()
+	if stats.idle_mode_enabled:
+		start_combat() # Passive mode uses the timer
 	else:
-		start_combat()
+		attack_timer.stop() # Active mode relies on input
 
 func _input(event):
-	if not StatsManager.stats.companion_mode_typing:
+	# Only manual cast if NOT in idle mode
+	if StatsManager.stats.idle_mode_enabled:
 		return
 		
 	if event is InputEventKey or event is InputEventMouseButton:
@@ -72,7 +73,6 @@ func _input(event):
 func _on_wizard_appearance_changed():
 	wizard.update_appearance(StatsManager.stats)
 	StatsManager.save_stats()
-	# Check if mode changed
 	refresh_companion_mode()
 
 func spawn_enemy():
@@ -83,7 +83,6 @@ func spawn_enemy():
 	enemy.set_texture(tex)
 
 func start_combat():
-	if StatsManager.stats.companion_mode_typing: return
 	attack_timer.wait_time = 1.5 / StatsManager.stats.haste
 	attack_timer.start()
 

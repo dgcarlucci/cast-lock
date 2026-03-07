@@ -40,7 +40,7 @@ func load_or_create_stats():
 		stats.spell_mastery_xp = save_data.get("spell_mastery_xp", stats.spell_mastery_xp)
 		stats.unlocked_tiers = save_data.get("unlocked_tiers", stats.unlocked_tiers)
 		stats.total_casts = save_data.get("total_casts", stats.total_casts)
-		stats.companion_mode_typing = save_data.get("companion_mode_typing", stats.companion_mode_typing)
+		stats.idle_mode_enabled = save_data.get("idle_mode_enabled", stats.idle_mode_enabled)
 
 func save_stats():
 	SaveManager.save_game(stats)
