@@ -19,8 +19,8 @@ var categories = {
 	"head": {
 		"name": "Wizard Hats",
 		"items": [
-			{"id": "hat_basic", "name": "Pointy Hat", "cost": 30, "haste_boost": 0.05, "texture": "res://resources/player/appearance/hat_basic.svg", "tier": 1},
-			{"id": "hat_apprentice", "name": "Apprentice Hood", "cost": 120, "haste_boost": 0.1, "texture": "res://resources/player/appearance/hat_apprentice.svg", "tier": 2},
+			{"id": "hat_basic", "name": "Apprentice Hat", "cost": 30, "haste_boost": 0.05, "texture": "res://resources/player/appearance/hat_basic.svg", "tier": 1},
+			{"id": "hat_apprentice", "name": "Scholar's Hood", "cost": 120, "haste_boost": 0.1, "texture": "res://resources/player/appearance/hat_apprentice.svg", "tier": 2},
 			{"id": "hat_scholar", "name": "Scholar Cap", "cost": 400, "haste_boost": 0.15, "texture": "res://resources/player/appearance/hat_scholar.svg", "tier": 3},
 			{"id": "hat_sage", "name": "Sage Crown", "cost": 1000, "haste_boost": 0.2, "texture": "res://resources/player/appearance/hat_sage.svg", "tier": 4},
 			{"id": "hat_archmage", "name": "Archmage Hat", "cost": 2500, "haste_boost": 0.3, "texture": "res://resources/player/appearance/hat_archmage.svg", "tier": 5},
@@ -31,8 +31,8 @@ var categories = {
 			{"id": "hat_infinite", "name": "Infinite Halo", "cost": 120000, "haste_boost": 1.5, "texture": "res://resources/player/appearance/hat_infinite.svg", "tier": 10}
 		]
 	},
-	"body": {
-		"name": "Magical Robes",
+	"chest": {
+		"name": "Chest Pieces",
 		"items": [
 			{"id": "robe_basic", "name": "Apprentice Robe", "cost": 40, "haste_boost": 0.02, "texture": "res://resources/player/appearance/robe_basic.svg", "tier": 1},
 			{"id": "robe_scholar", "name": "Scholar's Robe", "cost": 250, "power_boost": 4, "texture": "res://resources/player/appearance/robe_scholar.svg", "tier": 2},
@@ -43,6 +43,12 @@ var categories = {
 			{"id": "robe_necromancer", "name": "Bone Mail", "cost": 30000, "power_boost": 600, "texture": "res://resources/player/appearance/robe_necromancer.svg", "tier": 7},
 			{"id": "robe_cosmic", "name": "Starry Cloak", "cost": 65000, "power_boost": 1200, "texture": "res://resources/player/appearance/robe_cosmic.svg", "tier": 8},
 			{"id": "robe_infinite", "name": "Eternal Robe", "cost": 150000, "power_boost": 3000, "texture": "res://resources/player/appearance/robe_infinite.svg", "tier": 9}
+		]
+	},
+	"legs": {
+		"name": "Legwear",
+		"items": [
+			{"id": "pants_basic", "name": "Basic Pants", "cost": 25, "haste_boost": 0.01, "texture": "res://resources/player/appearance/pants_basic.svg", "tier": 1}
 		]
 	},
 	"accessories": {

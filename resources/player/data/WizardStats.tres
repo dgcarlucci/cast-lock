@@ -10,3 +10,34 @@ xp = 0
 attack_power = 10.0
 crit_chance = 0.05
 haste = 1.0
+skin_color = Color(1, 0.878431, 0.741176, 1)
+chest_color = Color(0.290196, 0.101961, 0.419608, 1)
+legs_color = Color(0.290196, 0.101961, 0.419608, 1)
+hat_color = Color(0.290196, 0.101961, 0.419608, 1)
+eye_color = Color(0, 0, 0, 1)
+hair_color = Color(1, 1, 1, 1)
+hair_style = 1
+beard_style = 1
+chest_style = 1
+legs_style = 1
+hat_style = 1
+main_hand_style = 1
+off_hand_style = 0
+accessory_style = 0
+unlocked_tiers = {
+"accessories": 0,
+"chest": 1,
+"head": 1,
+"legs": 1,
+"main_hand": 1
+}
+active_spell_id = "magic_missile"
+learned_spells = {
+"magic_missile": {
+"mastery": 0,
+"rank": 1
+}
+}
+spell_mastery_xp = 0
+total_casts = 0
+idle_mode_enabled = false

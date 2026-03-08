@@ -161,15 +161,25 @@ func update_armory_ui():
 				var item = items[i]
 				var btn = Button.new()
 				btn.add_theme_font_size_override("font_size", 7)
-				btn.text = item.get("name")
-				btn.pressed.connect(_on_equip_item_pressed.bind(cat_id, item.get("tier", 1)))
+				
+				var is_equipped = false
+				var item_tier = item.get("tier", 1)
+				if cat_id == "main_hand": is_equipped = (stats.main_hand_style == item_tier)
+				elif cat_id == "head": is_equipped = (stats.hat_style == item_tier)
+				elif cat_id == "chest": is_equipped = (stats.chest_style == item_tier)
+				elif cat_id == "legs": is_equipped = (stats.legs_style == item_tier)
+				elif cat_id == "accessories": is_equipped = (stats.accessory_style == item_tier)
+				
+				btn.text = item.get("name") + (" (E)" if is_equipped else "")
+				btn.pressed.connect(_on_equip_item_pressed.bind(cat_id, item_tier))
 				unlocked_items_container.add_child(btn)
 
 func _on_equip_item_pressed(category: String, tier: int):
 	var stats = StatsManager.stats
 	if category == "main_hand": stats.main_hand_style = tier
 	elif category == "head": stats.hat_style = tier
-	elif category == "body": stats.robe_style = tier
+	elif category == "chest": stats.chest_style = tier
+	elif category == "legs": stats.legs_style = tier
 	elif category == "accessories": stats.accessory_style = tier
 	appearance_changed.emit()
 	_update_all_previews()
@@ -191,7 +201,8 @@ func _on_research_button_pressed():
 		stats.unlocked_tiers[selected_equip_cat] = item.get("tier", 1)
 		if selected_equip_cat == "main_hand": stats.main_hand_style = item.get("tier", 1)
 		elif selected_equip_cat == "head": stats.hat_style = item.get("tier", 1)
-		elif selected_equip_cat == "body": stats.robe_style = item.get("tier", 1)
+		elif selected_equip_cat == "chest": stats.chest_style = item.get("tier", 1)
+		elif selected_equip_cat == "legs": stats.legs_style = item.get("tier", 1)
 		elif selected_equip_cat == "accessories": stats.accessory_style = item.get("tier", 1)
 		if item.has("power_boost"): stats.attack_power += item.get("power_boost", 0)
 		if item.has("haste_boost"): stats.haste += item.get("haste_boost", 0)

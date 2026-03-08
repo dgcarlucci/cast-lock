@@ -530,11 +530,11 @@ stretch_mode = 5
 [node name="ResetConfirmation" type="ConfirmationDialog" parent="."]
 title = "Reset Progress?"
 initial_position = 2
-size = Vector2i(200, 100)
-unresizable = true
+size = Vector2i(280, 140)
 ok_button_text = "YES, RESET"
 dialog_text = "Erase all progress? This cannot be undone."
 cancel_button_text = "NO"
+dialog_autowrap = true
 
 [connection signal="pressed" from="BookButton" to="." method="_on_book_button_pressed"]
 [connection signal="pressed" from="Grimoire/TabContainer/Workshop/RightPage/VBox/ResearchButton" to="." method="_on_research_button_pressed"]

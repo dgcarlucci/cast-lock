@@ -4,7 +4,8 @@ enum State { IDLE, CAST, RECOVER }
 var current_state: State = State.IDLE
 
 @onready var body = $Layers/Body
-@onready var robe = $Layers/Robe
+@onready var legs = $Layers/Legs
+@onready var chest = $Layers/Chest
 @onready var hat = $Layers/Hat
 @onready var eyes = $Layers/Eyes
 @onready var hair = $Layers/Hair
@@ -21,7 +22,8 @@ func _ready():
 
 func update_appearance(stats: WizardStats):
 	body.modulate = stats.skin_color
-	robe.modulate = stats.robe_color
+	chest.modulate = stats.chest_color
+	legs.modulate = stats.legs_color
 	hat.modulate = stats.hat_color
 	hair.modulate = stats.hair_color
 	beard.modulate = stats.hair_color
@@ -34,25 +36,37 @@ func update_appearance(stats: WizardStats):
 	hair.visible = stats.hair_style > 0
 	beard.visible = stats.beard_style > 0
 	
-	# Robe visibility and texture
-	if stats.robe_style <= 1:
-		robe.texture = load("res://resources/player/appearance/robe_basic.svg")
-	elif stats.robe_style == 2:
-		robe.texture = load("res://resources/player/appearance/robe_scholar.svg")
-	elif stats.robe_style == 3:
-		robe.texture = load("res://resources/player/appearance/robe_sage.svg")
-	elif stats.robe_style == 4:
-		robe.texture = load("res://resources/player/appearance/robe_archmage.svg")
-	elif stats.robe_style == 5:
-		robe.texture = load("res://resources/player/appearance/robe_warlock.svg")
-	elif stats.robe_style == 6:
-		robe.texture = load("res://resources/player/appearance/robe_druid.svg")
-	elif stats.robe_style == 7:
-		robe.texture = load("res://resources/player/appearance/robe_necromancer.svg")
-	elif stats.robe_style == 8:
-		robe.texture = load("res://resources/player/appearance/robe_cosmic.svg")
-	elif stats.robe_style == 9:
-		robe.texture = load("res://resources/player/appearance/robe_infinite.svg")
+	# Chest visibility and texture
+	if stats.chest_style == 0:
+		chest.visible = false
+	else:
+		chest.visible = true
+		if stats.chest_style == 1:
+			chest.texture = load("res://resources/player/appearance/robe_basic.svg")
+		elif stats.chest_style == 2:
+			chest.texture = load("res://resources/player/appearance/robe_scholar.svg")
+		elif stats.chest_style == 3:
+			chest.texture = load("res://resources/player/appearance/robe_sage.svg")
+		elif stats.chest_style == 4:
+			chest.texture = load("res://resources/player/appearance/robe_archmage.svg")
+		elif stats.chest_style == 5:
+			chest.texture = load("res://resources/player/appearance/robe_warlock.svg")
+		elif stats.chest_style == 6:
+			chest.texture = load("res://resources/player/appearance/robe_druid.svg")
+		elif stats.chest_style == 7:
+			chest.texture = load("res://resources/player/appearance/robe_necromancer.svg")
+		elif stats.chest_style == 8:
+			chest.texture = load("res://resources/player/appearance/robe_cosmic.svg")
+		elif stats.chest_style == 9:
+			chest.texture = load("res://resources/player/appearance/robe_infinite.svg")
+
+	# Legs visibility and texture
+	if stats.legs_style == 0:
+		legs.visible = false
+	else:
+		legs.visible = true
+		if stats.legs_style == 1:
+			legs.texture = load("res://resources/player/appearance/pants_basic.svg")
 		
 	# Hat visibility and texture
 	if stats.hat_style == 0:

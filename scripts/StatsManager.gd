@@ -24,12 +24,14 @@ func load_or_create_stats():
 		stats.haste = save_data.get("haste", stats.haste)
 		
 		if save_data.has("skin_color"): stats.skin_color = Color(save_data.skin_color)
-		if save_data.has("robe_color"): stats.robe_color = Color(save_data.robe_color)
+		if save_data.has("chest_color"): stats.chest_color = Color(save_data.chest_color)
+		if save_data.has("legs_color"): stats.legs_color = Color(save_data.legs_color)
 		if save_data.has("hat_color"): stats.hat_color = Color(save_data.hat_color)
 		if save_data.has("eye_color"): stats.eye_color = Color(save_data.eye_color)
 		if save_data.has("hair_color"): stats.hair_color = Color(save_data.hair_color)
 		
-		stats.robe_style = save_data.get("robe_style", stats.robe_style)
+		stats.chest_style = save_data.get("chest_style", stats.chest_style)
+		stats.legs_style = save_data.get("legs_style", stats.legs_style)
 		stats.hat_style = save_data.get("hat_style", stats.hat_style)
 		stats.hair_style = save_data.get("hair_style", stats.hair_style)
 		stats.beard_style = save_data.get("beard_style", stats.beard_style)

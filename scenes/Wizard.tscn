@@ -25,7 +25,11 @@ texture = ExtResource("2_body")
 centered = false
 offset = Vector2(-32, -64)
 
-[node name="Robe" type="Sprite2D" parent="Layers"]
+[node name="Legs" type="Sprite2D" parent="Layers"]
+centered = false
+offset = Vector2(-32, -64)
+
+[node name="Chest" type="Sprite2D" parent="Layers"]
 texture = ExtResource("3_robe")
 centered = false
 offset = Vector2(-32, -64)
