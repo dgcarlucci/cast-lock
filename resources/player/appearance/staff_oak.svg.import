@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bisnm72rjkeh8"
-path="res://.godot/imported/wand_basic.svg-d574deae87f1fdb4aae5534fc751ef11.ctex"
+uid="uid://boq3tfiq8005f"
+path="res://.godot/imported/staff_oak.svg-eb5573997f48b74a3c14a93996d1ef4a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/player/appearance/wand_basic.svg"
-dest_files=["res://.godot/imported/wand_basic.svg-d574deae87f1fdb4aae5534fc751ef11.ctex"]
+source_file="res://resources/player/appearance/staff_oak.svg"
+dest_files=["res://.godot/imported/staff_oak.svg-eb5573997f48b74a3c14a93996d1ef4a.ctex"]
 
 [params]
 

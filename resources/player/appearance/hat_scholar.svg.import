@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://oo6swd5ojojf"
-path="res://.godot/imported/hat_scholar.svg-f204fd2b259b2979e58ea5d9e09e4ed8.ctex"
+uid="uid://dxn1wmlm5cl75"
+path="res://.godot/imported/hat_apprentice.svg-4b7fc1a1c0eaea7247e75d7ef39cda65.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/player/appearance/hat_scholar.svg"
-dest_files=["res://.godot/imported/hat_scholar.svg-f204fd2b259b2979e58ea5d9e09e4ed8.ctex"]
+source_file="res://resources/player/appearance/hat_apprentice.svg"
+dest_files=["res://.godot/imported/hat_apprentice.svg-4b7fc1a1c0eaea7247e75d7ef39cda65.ctex"]
 
 [params]
 

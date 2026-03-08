@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddlgm1ghk5tpm"
-path="res://.godot/imported/acc_book.svg-a0f822c53c36e463055f560a48457f06.ctex"
+uid="uid://lllchivwtux6"
+path="res://.godot/imported/legs_apprentice.svg-4796db60388859adbf06663a0f58c4d7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/player/appearance/acc_book.svg"
-dest_files=["res://.godot/imported/acc_book.svg-a0f822c53c36e463055f560a48457f06.ctex"]
+source_file="res://resources/player/appearance/legs_apprentice.svg"
+dest_files=["res://.godot/imported/legs_apprentice.svg-4796db60388859adbf06663a0f58c4d7.ctex"]
 
 [params]
 

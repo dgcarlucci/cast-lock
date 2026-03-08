@@ -1,6 +1,5 @@
 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Scholar Cap -->
-  <rect x="15" y="15" width="34" height="10" fill="white" stroke="#333" stroke-width="2"/>
-  <path d="M10 15L32 10L54 15L32 20L10 15Z" fill="white" stroke="#333" stroke-width="2"/>
-  <path d="M50 15V25" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+  <!-- Apprentice Hood -->
+  <path d="M15 30C15 15 25 10 32 10C39 10 49 15 49 30V40H15V30Z" fill="white" stroke="#333" stroke-width="2"/>
+  <path d="M15 35L32 42L49 35" stroke="#333" stroke-width="2" fill="none"/>
 </svg>

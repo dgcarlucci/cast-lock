@@ -42,7 +42,7 @@ func update_appearance(stats: WizardStats):
 	else:
 		chest.visible = true
 		if stats.chest_style == 1:
-			chest.texture = load("res://resources/player/appearance/robe_basic.svg")
+			chest.texture = load("res://resources/player/appearance/robe_apprentice.svg")
 		elif stats.chest_style == 2:
 			chest.texture = load("res://resources/player/appearance/robe_scholar.svg")
 		elif stats.chest_style == 3:
@@ -66,7 +66,7 @@ func update_appearance(stats: WizardStats):
 	else:
 		legs.visible = true
 		if stats.legs_style == 1:
-			legs.texture = load("res://resources/player/appearance/pants_basic.svg")
+			legs.texture = load("res://resources/player/appearance/legs_apprentice.svg")
 		
 	# Hat visibility and texture
 	if stats.hat_style == 0:
@@ -74,11 +74,11 @@ func update_appearance(stats: WizardStats):
 	else:
 		hat.visible = true
 		if stats.hat_style == 1:
-			hat.texture = load("res://resources/player/appearance/hat_basic.svg")
-		elif stats.hat_style == 2:
 			hat.texture = load("res://resources/player/appearance/hat_apprentice.svg")
-		elif stats.hat_style == 3:
+		elif stats.hat_style == 2:
 			hat.texture = load("res://resources/player/appearance/hat_scholar.svg")
+		elif stats.hat_style == 3:
+			hat.texture = load("res://resources/player/appearance/hat_scholar.svg") # Reuse scholar cap for now if same tier
 		elif stats.hat_style == 4:
 			hat.texture = load("res://resources/player/appearance/hat_sage.svg")
 		elif stats.hat_style == 5:
@@ -101,9 +101,9 @@ func update_appearance(stats: WizardStats):
 		weapon.visible = true
 		weapon.modulate = Color.WHITE
 		if stats.main_hand_style == 1:
-			weapon.texture = load("res://resources/player/appearance/wand_basic.svg")
+			weapon.texture = load("res://resources/player/appearance/wand_apprentice.svg")
 		elif stats.main_hand_style == 2:
-			weapon.texture = load("res://resources/player/appearance/staff_basic.svg")
+			weapon.texture = load("res://resources/player/appearance/staff_oak.svg")
 		elif stats.main_hand_style == 3:
 			weapon.texture = load("res://resources/player/appearance/wand_willow.svg")
 		elif stats.main_hand_style == 4:
@@ -128,7 +128,7 @@ func update_appearance(stats: WizardStats):
 		accessory.visible = true
 		accessory.modulate = Color.WHITE
 		if stats.accessory_style == 1:
-			accessory.texture = load("res://resources/player/appearance/acc_book.svg")
+			accessory.texture = load("res://resources/player/appearance/acc_apprentice.svg")
 		elif stats.accessory_style == 2:
 			accessory.texture = load("res://resources/player/appearance/acc_pouch.svg")
 		elif stats.accessory_style == 3:

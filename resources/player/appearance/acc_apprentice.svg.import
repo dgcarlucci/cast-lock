@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://geahrce14ht2"
-path="res://.godot/imported/robe_basic.svg-c3e88407238f0898643faf893e09e886.ctex"
+uid="uid://ddlgm1ghk5tpm"
+path="res://.godot/imported/acc_apprentice.svg-cbc73eea2be2d16ae766313f7283ba96.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/player/appearance/robe_basic.svg"
-dest_files=["res://.godot/imported/robe_basic.svg-c3e88407238f0898643faf893e09e886.ctex"]
+source_file="res://resources/player/appearance/acc_apprentice.svg"
+dest_files=["res://.godot/imported/acc_apprentice.svg-cbc73eea2be2d16ae766313f7283ba96.ctex"]
 
 [params]
 
